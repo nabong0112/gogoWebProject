@@ -40,7 +40,7 @@ public class PageController {
 
 	}
 
-	// 아이디&비밀번호 찾기 체크 아 왜 .do를쓰라는지알겠ㄷㄻㅇㄴㄻㅇ러ㅏㅣ;ㄴ어ㅏㅣ;
+	// 아이디&비밀번호 찾기 체크
 	@RequestMapping("/findUserCheck.do")
 	public String findUser(@ModelAttribute PageVo vo, Model mv, HttpSession session) throws Exception {
 
@@ -67,22 +67,20 @@ public class PageController {
 
 	}
 
-	// 회원가입 체크 넣어야됨
+	// 회원가입
 	@RequestMapping("/joinCheck.do")
 	public String joinCheck(@ModelAttribute PageVo vo, Model mv) throws Exception {
 		
-		if(pageService.joinCheck(vo) != null) {
-			String check = "overlepId";
+		String check = pageService.joinService(vo);
+		//아이디 중복체크
+		if(check == "overlepId") {
 			mv.addAttribute("check", check);	
 			return "join";
 		}else {
-		pageService.joinCheckService(vo);
-		String check = "joinOk";
-		mv.addAttribute("check", check);
+			mv.addAttribute("check", check);	
 			return "login";
 		}
 	}
-
 
 	// 메인
 	@RequestMapping("/main.do")
@@ -99,7 +97,7 @@ public class PageController {
 		return "main";
 	}
 
-	// 로그인 창
+	// 로그인 화면
 	@RequestMapping("/login.do")
 	public String login(HttpSession session) {
 
@@ -112,6 +110,26 @@ public class PageController {
 			return "main";
 		}
 	}
+	
+	//로그인체크
+		@RequestMapping("/loginCheck.do")
+		public String loginCheck(HttpSession session, @ModelAttribute PageVo vo, Model model) throws Exception {
+
+			boolean check = pageService.loginService(session, vo);
+
+			if (check) {
+				System.out.println("로그인 성공");
+				System.out.println(session.getAttribute("userId"));
+				System.out.println(session.getAttribute("userPw"));
+				return "redirect:main.do";
+			} else {
+				System.out.println("로그인 실패");
+				System.out.println(check);
+				model.addAttribute("check", check);
+				return "login";
+			}
+
+		}
 
 	// 로그아웃
 	@RequestMapping("/logout.do")
@@ -121,7 +139,8 @@ public class PageController {
 
 		return "redirect:main.do";
 	}
-
+	
+	//마이페이지
 	@RequestMapping("/myPage.do")
 	public String myPage(HttpSession session, PageVo vo, Model model) throws Exception {
 		String check = "login";
@@ -138,26 +157,42 @@ public class PageController {
 			return "myPage";
 		}
 	}
+	
+	//회원정보 수정 페이지
+	@RequestMapping("/updateUser.do")
+	public String updateUser(HttpSession session, PageVo vo, Model model) throws Exception {
+		String check = "login";
 
-	@RequestMapping("/loginCheck.do")
-	public String loginCheck(HttpSession session, @ModelAttribute PageVo vo, Model model) throws Exception {
-
-		boolean check = pageService.loginService(session, vo);
-
-		if (check) {
-			System.out.println("로그인 성공");
-			System.out.println(session.getAttribute("userId"));
-			System.out.println(session.getAttribute("userPw"));
-			return "redirect:main.do";
-		} else {
-			System.out.println("로그인 실패");
-			System.out.println(check);
+		if (session.getAttribute("userId") == null) {
 			model.addAttribute("check", check);
 			return "login";
+
+		} else {
+			String id = (String) session.getAttribute("userId");
+			vo = pageService.myPageService(session, id);
+			System.out.println(vo.getJoinTime());
+			model.addAttribute("info", vo);
+			return "myPage";
 		}
-
 	}
+	//회원정보 삭제
+	@RequestMapping("/deleteUser.do")
+	public String deleteUser(HttpSession session, PageVo vo, Model model) throws Exception {
+		String check = "login";
 
+		if (session.getAttribute("userId") == null) {
+			model.addAttribute("check", check);
+			return "login";
+
+		} else {
+			String id = (String) session.getAttribute("userId");
+			vo = pageService.myPageService(session, id);
+			System.out.println(vo.getJoinTime());
+			model.addAttribute("info", vo);
+			return "myPage";
+		}
+	}
+	
 	// 검색
 	@RequestMapping("/search.do")
 	public String noticeSearch(@RequestParam("boardValue") int boardValue, @ModelAttribute PageVo vo,

@@ -26,16 +26,15 @@ public class PageServiceImpl extends EgovAbstractServiceImpl implements PageServ
 	private PageMapper pageMapper;
 
 	@Override
-	public void joinCheckService(PageVo vo) {
+	public String joinService(PageVo vo) {
 		
-		pageMapper.joinCheck(vo);
-		
-	}
-	
-	@Override
-	public PageVo joinCheck(PageVo vo) {
-		
-		return pageMapper.joinCheck2(vo);
+		//아이디 중복체크
+		if(pageMapper.joinIdCheck(vo) != null) {
+			return "overlepId";
+		}else {
+			pageMapper.join(vo);
+			return "joinOk";
+		}
 		
 	}
 

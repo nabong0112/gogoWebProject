@@ -44,11 +44,9 @@ public interface PageService {
 
 	public List<PageVo> searchNoticeService(PageVo vo);
 
-	public void joinCheckService(PageVo vo);
+	public String joinService(PageVo vo);
 
 	public PageVo findUserService(PageVo vo);
-
-	public PageVo joinCheck(PageVo vo);
 
 
 	

@@ -38,11 +38,11 @@ public interface PageMapper {
 
 	public List<PageVo> search(PageVo vo);
 
-	public void joinCheck(PageVo vo);
+	public void join(PageVo vo);
 
 	public PageVo findUser(PageVo vo);
 
-	public PageVo joinCheck2(PageVo vo);
+	public PageVo joinIdCheck(PageVo vo);
 	
 	
 	

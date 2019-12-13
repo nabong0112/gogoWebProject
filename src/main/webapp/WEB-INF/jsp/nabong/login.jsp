@@ -7,14 +7,6 @@
     <title>페이지 제작</title>
     <link type="text/css" rel="stylesheet" href="/css/egovframework/loginStyle.css">
      <link type="text/css" rel="stylesheet" href="/css/egovframework/mainStyle.css">
-     <script type="text/javascript">
-        function popUp(){
-            var url = "popup.html";
-            var name = "popup test";
-            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-            window.open(url, name, option);
-        }
-    </script>
 </head>
 <body> 
 <!-- header ------------------------------------------ -->
@@ -34,8 +26,8 @@
                             <h1>로그인</h1>
                         </div>
                         <form action="loginCheck.do" method="post">
-                            <input type="text" name="userId" placeholder="아이디">
-                            <input type="password" name="userPw" placeholder="비밀번호">
+                            <input type="text" name="userId" placeholder="아이디"  maxlength="10">
+                            <input type="password" name="userPw" placeholder="비밀번호"  maxlength="15">
                             <a href="javascript:popUp();">팝업</a>
                             <c:choose>
                             	<c:when test="${check eq 'false' }">
@@ -71,7 +63,7 @@
                         <h1><a href="join.do">도움이 필요하신가요?</a></h1>
                         <p>
                             <button onclick="javascript:join();">회원가입</button>
-                            <button>아이디 / 비밀번호 찾기</button>
+                            <button onclick="javascript:findUser();">아이디 / 비밀번호 찾기</button>
                         </p>
                     </div>
                 </div>
@@ -80,5 +72,14 @@
     </section>
     <div class="clear"></div>
     <!-- //section -->
+<script type="text/javascript">
+        function join(){
+        	location.href="join.do";
+        }
+        
+        function findUser(){
+        	location.href="findUser.do";
+        }
+</script>
 </body>
 </html>
