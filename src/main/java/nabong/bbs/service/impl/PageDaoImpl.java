@@ -9,10 +9,10 @@ import  org.springframework.beans.factory.annotation.Autowired;
 import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
 import nabong.bbs.vo.PageVo;
 
-@Repository("pageDao")
+//@Repository("pageDao")
 public class PageDaoImpl extends EgovAbstractDAO implements PageDao{
 	
-	private SqlSessionTemplate sqlSession;
+	/*private SqlSessionTemplate sqlSession;
 
 	private String namespace = "org.egovframework.sqlmap.example.mappers.pageMapper";
 	
@@ -20,5 +20,5 @@ public class PageDaoImpl extends EgovAbstractDAO implements PageDao{
 	public List<PageVo> memberInfo() throws Exception {
 		
 		return sqlSession.selectList(namespace + ".test");
-	}
+	}*/
 }

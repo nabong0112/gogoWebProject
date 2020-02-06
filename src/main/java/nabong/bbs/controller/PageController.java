@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +23,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import nabong.bbs.service.PageService;
+import nabong.bbs.service.VisitCountService;
+import nabong.bbs.service.impl.VisitCountServiceImpl;
 import nabong.bbs.vo.PageVo;
 import nabong.bbs.vo.PagingVo;
 
@@ -31,6 +32,42 @@ import nabong.bbs.vo.PagingVo;
 public class PageController {
 	@Autowired
 	private PageService pageService;
+	
+	@Autowired
+	private VisitCountService visitService;
+	
+	//도로명주소 삽입
+			@RequestMapping(path="/sample.do")
+			public String sample(Model mv) throws Exception {
+				
+				return "sample";
+
+			}
+			
+			@RequestMapping("/popup/jusoPopup.do")
+			public String jusoPopup(Model mv) throws Exception {
+				
+				return "/popup/jusoPopup";
+
+			}
+			
+			
+		//차트
+		@RequestMapping("/chartEx.do")
+		public String chartEx(Model mv) throws Exception {
+			
+			return "chartEx";
+
+		}
+		
+		@RequestMapping(path="/daejeonMain.do")
+		public String daejeonMain(Model mv) throws Exception {
+			
+			return "/gogoDaejeon/main";
+
+		}
+	
+	
 
 	// 아이디&비밀번호 찾기 폼
 	@RequestMapping("/findUser.do")
@@ -39,7 +76,16 @@ public class PageController {
 		return "find";
 
 	}
+	
+	@RequestMapping("/visit.do")
+	public String visit(Model mv) throws Exception {
+		mv.addAttribute("today",visitService.getTodayCount());
+		mv.addAttribute("total",visitService.getTotalCount());
+		mv.addAttribute("get",visitService.getTime());
+		return "/example/visit";
 
+	}
+	
 	// 아이디&비밀번호 찾기 체크
 	@RequestMapping("/findUserCheck.do")
 	public String findUser(@ModelAttribute PageVo vo, Model mv, HttpSession session) throws Exception {
@@ -93,14 +139,13 @@ public class PageController {
 		mv.addAttribute("boardList", list);
 		mv.addAttribute("QnAList", QnAList);
 		mv.addAttribute("FreeList", FreeList);
-
 		return "main";
 	}
 
 	// 로그인 화면
 	@RequestMapping("/login.do")
 	public String login(HttpSession session) {
-
+		//관ㄹㅣ자기능 추가 통계(접속자 수 연령별 선호도 분포) 자바스크립트 차트 라이브러리 통계를 시각화하는 쿼리를 잘짜야함
 		if (session.getAttribute("userId") == null) {
 			return "login";
 
@@ -159,8 +204,8 @@ public class PageController {
 	}
 	
 	//회원정보 수정 페이지
-	@RequestMapping("/updateUser.do")
-	public String updateUser(HttpSession session, PageVo vo, Model model) throws Exception {
+	@RequestMapping("/updateUserChcek.do")
+	public String updateUserChcek(HttpSession session, PageVo vo, Model model) throws Exception {
 		String check = "login";
 
 		if (session.getAttribute("userId") == null) {

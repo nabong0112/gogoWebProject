@@ -49,6 +49,22 @@ public class PageVo {
 	String filePath;
 	String fileChangeName;
 	
+	//방문자 수 통계
+	int visitDate;
+	String visitId;
+	
+	public int getVisitDate() {
+		return visitDate;
+	}
+	public void setVisitDate(int visitDate) {
+		this.visitDate = visitDate;
+	}
+	public String getVisitId() {
+		return visitId;
+	}
+	public void setVisitId(String visitId) {
+		this.visitId = visitId;
+	}
 	public MultipartFile getMpfile() {
 		return mpfile;
 	}

@@ -6,6 +6,6 @@ import nabong.bbs.vo.PageVo;
 
 public interface PageDao {
 
-	List<PageVo> memberInfo() throws Exception;
+	//List<PageVo> memberInfo() throws Exception;
 
 }

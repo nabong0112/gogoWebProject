@@ -30,15 +30,28 @@
 				class="egovframework.example.cmmn.web.EgovBindingInitializer" />
 		</property>
 	</bean>
-	<bean
-		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	<!-- 202-01-17 인터셉터 추가 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
 		<property name="interceptors">
 			<list>
 				<ref bean="localeChangeInterceptor" />
+				<ref bean="authenticationInterceptor" /> <!-- 이거 추가함 -->
 			</list>
 		</property>
 	</bean>
-
+	<bean id="authenticationInterceptor" class="nabong.bbs.handler.AuthenticationInterceptor">
+          <!-- 인증 체크가 필요한 URL 리스트  -->
+      <property name="urls">
+       <list>
+        	<value>/myPage.do</value>
+        	<value>/login.do</value>
+        	<value>/join.do</value>
+        	<value>/Talk/review/write.do</value>
+        	<value>/Talk/photo/write.do</value>
+       </list>
+      </property>
+  </bean> 
+	<!-- 추가 끝 -->
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
 	<!-- 쿠키를 이용한 Locale 이용시 <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> -->

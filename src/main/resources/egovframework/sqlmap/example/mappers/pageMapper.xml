@@ -41,6 +41,35 @@
 		<result property="filePath" column="file_Path" />
 		<result property="date" column="DATE" />
 	</resultMap>
+	<resultMap id="count" type="nabong.bbs.vo.VisitCountVo">
+		<result property="visitDate" column="visit_date" />
+		<result property="visitId" column="visit_id" />
+</resultMap>
+
+	<!-- 총방문자수 설정 -->
+	<insert id="setTotalCount">
+		insert into visit (visit_date) values (CURDATE());
+	</insert>
+	
+	<!-- 총 방문자 수 통계 -->
+	<select id="getTotalCount" resultMap="count">
+		select count(*) from visit;
+	</select>
+	
+	<!-- 일일 방문자 수 통계 -->
+	<select id="getTodayCount" resultMap="count">
+		select count(*) from visit where visit_date = CURDATE();
+	</select>
+	
+	<!-- 날짜 별 방문자 수 통계 -->
+	<select id="getDateCount" resultMap="count">
+		select count(*) from visit where visit_date = #{visitDate};
+	</select>
+	
+	<select id="getTime" resultMap="count">
+		select * from visit
+	</select>
+	
 	<!-- 페이징 -->
 	<select id ="paging" resultType="nabong.bbs.vo.PagingVo">
 	<![CDATA[ <!-- 이거는 글 다섯개씩 부르게 할라고 -->

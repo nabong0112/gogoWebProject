@@ -61,7 +61,7 @@
 					<table class="type1">
 						<thead>
 							<tr>
-								<th><b>제목</b></th>
+								<th><b>제목 ${foodListApi[1].foodSeq}</b></th>
 								<th><b>작성 일자</b></th>
 								<th><b>조회수</b></th>
 							</tr>
@@ -153,7 +153,6 @@
 			<strong> 주소 : 대전광역시 중구 유천로 136 나이스타운 801호 번호 : 010-5795-6030
 				이름 : 전나현 </strong>
 			<div class="copyright">
-				<!-- COPYRIGHT &copy; 남가람북스's BLOG IS POWERED BY DAUM / DESIGNED BY TISTORY -->
 			</div>
 		</div>
 	</footer>

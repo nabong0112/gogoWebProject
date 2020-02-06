@@ -1,0 +1,80 @@
+@charset "UTF-8";
+.container {
+	display: flex;
+	background: rgba(17,100,125,0.6);
+}
+/* 링크 */
+a{
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/*
+ㅇㅇ
+  */
+  div#select_box {
+    position: relative;
+    width: 200px;
+    height: 40px;
+    background: url(select_arrow.png) 180px center no-repeat; /* 화살표 이미지 */
+    border: 1px solid #E9DDDD;
+}
+div#select_box label {
+    position: absolute;
+    font-size: 14px;
+    color: #a97228;
+    top: 13px;
+    left: 12px;
+    letter-spacing: 1px;
+}
+div#select_box select#color {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    opacity: 0;
+    filter: alpha(opacity=0); /* IE 8 */
+}
+  /* 
+  ㅇㅇ */
+img {
+  border: none;
+}
+/* 상단 메뉴 간격 조절 */
+.mainIcon {
+        flex: 0 auto;
+      }
+.selectMenu {
+        flex: 3 auto;
+        margin-top : 120px;
+      }
+.login {
+        flex: 1 auto;
+      }
+/* 상단 메뉴  */
+ul, ol, li { 
+	list-style:none; margin:0; padding:0; 
+}
+ul.myMenu {
+	flex-direction : row; justify-content: flex-end;
+}    
+ul.myMenu > li {
+	display:inline-block; width:220px; padding:5px 10px; background:#3cc2ff; border:1px solid #3cc2ff; text-align:center; position:relative; 
+}    
+ul.myMenu > li:hover {
+	background:#fff;
+}    
+ul.myMenu > li ul.submenu {
+	display:none; position:absolute; top:30px; left:-1px;
+}
+ul.myMenu > li:hover ul.submenu { 
+	display:block; 
+}
+ul.myMenu > li ul.submenu > li {
+	display:inline-block; width:220px; padding:5px 10px; background:#3cc2ff; border:1px solid #3cc2ff; text-align:center;
+}
+ul.myMenu > li ul.submenu > li:hover {
+	background:#fff; 
+}   

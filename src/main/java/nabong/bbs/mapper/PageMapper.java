@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Select;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import nabong.bbs.vo.PageVo;
+import nabong.bbs.vo.VisitCountVo;
 
 /*@Configuration*/
 @Mapper("pageMapper")
@@ -43,6 +44,18 @@ public interface PageMapper {
 	public PageVo findUser(PageVo vo);
 
 	public PageVo joinIdCheck(PageVo vo);
+	
+	public void setTotalCount() throws Exception;
+	
+	public List<VisitCountVo> getTime()throws Exception;
+	
+	public String getTotalCount()throws Exception;
+	
+	public String getTodayCount()throws Exception;
+	
+	public String getDateCount(String date)throws Exception;
+	
+	
 	
 	
 	
