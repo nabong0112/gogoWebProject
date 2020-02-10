@@ -3,9 +3,9 @@ package nabong.bbs.vo;
 public class VisitCountVo {
 	private String visitId; //접속자 id
 	
-    private int visitIp; //접속자 ip
+    private String visitIp; //접속자 ip
     
-    private int visitDate; //접속자 시간
+    private int visitDate; //접속자 날짜
     
     private String visitRefer; //접속자 접속 경로
     
@@ -19,11 +19,11 @@ public class VisitCountVo {
 		this.visitId = visitId;
 	}
 
-	public int getVisitIp() {
+	public String getVisitIp() {
 		return visitIp;
 	}
 
-	public void setVisitIp(int visitIp) {
+	public void setVisitIp(String visitIp) {
 		this.visitIp = visitIp;
 	}
 

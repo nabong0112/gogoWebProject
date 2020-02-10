@@ -11,7 +11,7 @@ public class PageVo {
 	private String id;
 	private String fileName;
 	private Date date;
-	
+	private Date userLastLogin;
 	/**
 	 * 
 	 */
@@ -294,6 +294,12 @@ public class PageVo {
 	}
 	public void setSearchName(String searchName) {
 		this.searchName = searchName;
+	}
+	public Date getUserLastLogin() {
+		return userLastLogin;
+	}
+	public void setUserLastLogin(Date userLastLogin) {
+		this.userLastLogin = userLastLogin;
 	}
 	
 

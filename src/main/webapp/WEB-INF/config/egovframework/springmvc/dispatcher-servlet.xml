@@ -44,7 +44,6 @@
       <property name="urls">
        <list>
         	<value>/myPage.do</value>
-        	<value>/login.do</value>
         	<value>/join.do</value>
         	<value>/Talk/review/write.do</value>
         	<value>/Talk/photo/write.do</value>

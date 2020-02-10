@@ -1,5 +1,7 @@
 package nabong.bbs.handler;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +13,30 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import nabong.bbs.service.VisitCountService;
+import nabong.bbs.vo.PageVo;
+import nabong.bbs.vo.VisitCountVo;
 
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	
 	@Autowired
 	VisitCountService service;
 	
-	//  인증 체크가 필요 없는 URL 리스트  
+	VisitCountVo vo = new VisitCountVo();
+	PageVo pageVo = new PageVo();
+	
+	//  인증 체크가 필요 한 URL 리스트  
+	/* /myPage.do /login.do /join.do /Talk/review/write.do /Talk/photo/write.do */
 	List<String> urls;
  
 	public void setUrls(List urls) {
 		this.urls = urls;
+	}
+	
+	InetAddress local;
+	public String getIp() throws UnknownHostException{
+		local = InetAddress.getLocalHost(); 
+		String visitIp = local.getHostAddress(); 
+	    return visitIp;
 	}
 
 	/**
@@ -55,21 +70,28 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
-		Object obj = session.getAttribute("userId");
+		String userId = (String)session.getAttribute("userId");
+		System.out.println(userId);
 		System.out.println("== URL : "+ request.getRequestURI() +" ============================");
-        //dispatcher-servlet의 value와 홈페이지가 일치하는 경우 세션이 없으면 접근 불가
+			System.out.println("local ip : "+ getIp());
+		//dispatcher-servlet의 value와 홈페이지가 일치하는 경우 세션이 없으면 접근 불가
 		for(int i=0; i < urls.size(); i++){
-            if (request.getRequestURI().matches(urls.get(i)) && obj == null) {
-        			System.out.println("== 로그인이 필요한 URL ============================");
-                    System.out.println("== URL : "+ request.getRequestURI() +" ============================");
-                    System.out.println("== return false ============================");
-        			response.sendRedirect("/login.do");
-        			return false;
-            }else {
-            	return true;
-            }
+			if (request.getRequestURI().matches(urls.get(i)) && userId == null) {
+				System.out.println("== return false ============================");
+				response.sendRedirect("/login.do");
+				return false;
+			}
 		}
-		
+		//동일한 ip가 아닐 경우 방문자 수 추가
+		if(service.check(getIp()) == 0) {
+			vo.setVisitIp(getIp());
+			service.setTotalCount(vo);
+		}
+		if(userId != null) {
+			pageVo.setUserId(userId);
+			service.setLastLogin(pageVo);
+			System.out.println(userId + "님 최종 접속일자 수정");
+		}
 		return true;
 	}
 	

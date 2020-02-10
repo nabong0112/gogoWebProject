@@ -14,6 +14,7 @@ import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import nabong.bbs.mapper.PageMapper;
 import nabong.bbs.mapper.VisitCountMapper;
 import nabong.bbs.service.VisitCountService;
+import nabong.bbs.vo.PageVo;
 import nabong.bbs.vo.VisitCountVo;
 
 @Service("visitCountService")
@@ -24,8 +25,8 @@ public class VisitCountServiceImpl extends EgovAbstractServiceImpl implements Vi
 		
 		//총 방문자 수 증가
 	    @Override
-		public void setTotalCount() throws Exception{
-	    	visitCountMapper.setTotalCount();
+		public void setTotalCount(VisitCountVo vo) throws Exception{
+	    	visitCountMapper.setTotalCount(vo);
 		}
 	    
 		//총 방문자 수 반환
@@ -54,5 +55,20 @@ public class VisitCountServiceImpl extends EgovAbstractServiceImpl implements Vi
 								
 			return visitCountMapper.getTime();
 		}
+	    
+	    @Override
+		public int check(String visitIp) throws Exception {
+								
+			return visitCountMapper.check(visitIp);
+		}
+
+		@Override
+		public void setLastLogin(PageVo pageVo) throws Exception  {
+			
+			visitCountMapper.setLastLogin(pageVo);
+			
+		}
+	    
+	    
 	
 }

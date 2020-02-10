@@ -5,25 +5,45 @@
 <resultMap id="count" type="nabong.bbs.vo.VisitCountVo">
 		<result property="visitDate" column="visit_date" />
 		<result property="visitId" column="visit_id" />
+		<result property="visitIp" column="visit_ip"/>
 </resultMap>
 
-	<!-- 총방문자수 설정 -->
+<resultMap id="user" type="nabong.bbs.vo.PageVo">
+		<result property="userId" column="user_id" />
+		<result property="userPw" column="user_pw" />
+		<result property="userName" column="user_name" />
+		<result property="joinTime" column="user_join_time" />
+		<result property="userIdQustion" column="user_id_question" />
+		<result property="userIdAnswer" column="user_id_answer" />
+		<result property="userJender" column="user_jender" />
+		<result property="userLastLogin" column="user_last_login" />
+	</resultMap>
+
+	<!-- 방문자 추가 -->
 	<insert id="setTotalCount">
-		 insert into visit (visit_date) values (CURDATE());
+		 insert into visit
+		 <choose>
+		 	<when test="visitIp != null">
+		 		(visit_ip, visit_date) values (#{visitIp}, CURDATE());
+		 	</when>
+		 	<otherwise>
+		 		(visit_date) values (CURDATE());
+		 	</otherwise>
+		 </choose>
 	</insert>
 	
 	<!-- 총 방문자 수 통계 -->
-	<select id="getTotalCount" resultMap="count">
+	<select id="getTotalCount" resultType="int">
 		select count(visit_date) from visit;
 	</select>
 	
 	<!-- 일일 방문자 수 통계 -->
-	<select id="getTodayCount" resultMap="count">
+	<select id="getTodayCount" resultType="int">
 		select count(*) from visit where visit_date = CURDATE();
 	</select>
 	
 	<!-- 날짜 별 방문자 수 통계 -->
-	<select id="getDateCount" resultMap="count">
+	<select id="getDateCount" resultType="int">
 		select count(*) from visit where visit_date = #{visitDate};
 	</select>
 	
@@ -31,4 +51,24 @@
 	<select id="getTime" resultMap="count">
 		select * from visit;
 	</select>
+	
+	<!-- 재방문 확인 -->
+	<select id="check" resultType="int">
+		select count(*) from visit where visit_date = CURDATE() and visit_ip = #{visitIp};
+		<!-- <choose>
+		 	<when test="visitIp != null">
+		 		(visit_ip, visit_date) values (#{visitIp}, CURDATE());
+		 	</when>
+		 	<otherwise>
+		 		(visit_date) values (CURDATE());
+		 	</otherwise>
+		 </choose> -->
+	</select>
+	
+	<!-- 최종 방문일자 수정 -->
+	<update id="setLastLogin">
+		<![CDATA[ 
+		update user set user_last_login = CURDATE() where user_id= #{userId};
+		]]>
+	</update>
 </mapper>	

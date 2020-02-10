@@ -9,7 +9,8 @@
 		<result property="joinTime" column="user_join_time" />
 		<result property="userIdQustion" column="user_id_question" />
 		<result property="userIdAnswer" column="user_id_answer" />
-		<result property="userJender" column="user_Jender" />
+		<result property="userJender" column="user_jender" />
+		<result property="userLastLogin" column="user_last_login" />
 	</resultMap>
 
 	<resultMap id="board" type="nabong.bbs.vo.PageVo">
@@ -313,6 +314,13 @@
 		board_text like CONCAT('%', #{searchName}, '%') 
 		or board_title like CONCAT('%', #{searchName}, '%')
 		ORDER BY board_no DESC; 
+		]]>
+	</select>
+	
+	<!-- 최종 방문일자 수정 -->
+	<select id="lastLogin" resultMap="board">
+		<![CDATA[ 
+		update user set user.user_last_login = CURDATE() where user.user_id=#{userId};
 		]]>
 	</select>
 	
