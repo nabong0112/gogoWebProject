@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.w3c.dom.NodeList;
 
+import nabong.bbs.vo.CommonVo;
 import nabong.bbs.vo.TourDataVo;
 import nabong.bbs.vo.TourFastivalDataVo;
 import nabong.bbs.vo.TourFoodDataVo;
 import nabong.bbs.vo.TourLodgingDataVo;
 
 public interface ApiService {
+	
+	public CommonVo getPageing(String url) throws Exception;
 	
 	//대전 문화 축제 상세화면, 문화 축제 목록 조회
 	/*TODO*/

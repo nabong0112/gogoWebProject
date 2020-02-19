@@ -30,6 +30,7 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 	
 	private static final String SERVICE_KEY = "serviceKey=%2B04YS1ydsBqlx3NmRFUsC1sRHrt4m%2BvzBhW9nes16%2FLC5oXQmE38nKIeuYvcy4NKiuv2RyH9FrirU4ZK7APzHg%3D%3D";
 	private static final String URL = "http://apis.data.go.kr/6300000/";
+
 	//축제정보
 	private static final String TOUR_FASTIVAL_LIST = "festivalDaejeonService/festivalDaejeonList?";
 	private static final String TOUR_FASTIVAL_ITEM = "festivalDaejeonService/festivalDaejeonItem?";
@@ -48,12 +49,42 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 	
 	CommonVo common = new CommonVo();
 	//페이징
-	/*private static String getPageing(String totalPage, String totalCount, String tag, Element eElement) {
-	 
-	 
-	 
-		return
-	}*/
+	public CommonVo getPageing(String url) throws Exception {
+		System.out.println("============ url \n" + url + "\n=============");
+		int countPage = 5; //한 화면에 출력될 페이지 수
+		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+		Document doc = dBuilder.parse(url);
+		// dom tree가 xml문서의 구조대로 완성이 됨
+		doc.getDocumentElement().normalize();
+		Node node = doc.getElementsByTagName("msgHeader").item(0);
+		CommonVo vo = new CommonVo();
+		if (node.getNodeType() == Node.ELEMENT_NODE) {
+			Element element = (Element) node;
+			vo.setTotalPage(getTagValue("totalPage", element));
+
+			vo.setPageNo(getTagValue("pageNo", element));
+
+			vo.setNumOfRows(getTagValue("numOfRows", element));
+
+			vo.setTotalCount(getTagValue("totalCount", element));
+		}
+		vo.setStartPage(vo.getPageNo());
+		vo.setEndPage(Integer.toString((Integer.parseInt(vo.getStartPage()) + countPage - 1)));
+		if(Integer.parseInt(vo.getStartPage()) < 1) {
+			vo.setStartPage(Integer.toString(1));
+		}
+		if(Integer.parseInt(vo.getTotalPage()) <= Integer.parseInt(vo.getEndPage()) || Integer.parseInt(vo.getTotalPage()) <= Integer.parseInt(vo.getPageNo())) {
+			vo.setEndPage(vo.getTotalPage());
+		}
+		System.out.println("getNumOfRows : " + vo.getNumOfRows().toString());
+		System.out.println("getTotalCount : " + vo.getTotalCount().toString());
+		System.out.println("getTotalPage : " + vo.getTotalPage().toString());
+		System.out.println("getPageNo : " + vo.getPageNo().toString());
+		System.out.println("getStartPage : " + vo.getStartPage().toString());
+		System.out.println("getEndPage : " + vo.getEndPage().toString());
+		return vo;
+	}
 	
 	//해당 태그의 값 불러오기
 	private static String getTagValue(String tag, Element eElement) {
@@ -71,8 +102,7 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
     	
 	}
 
-	//대전 문화 축제 목록 조회, 문화 축제 상세 화면
-	/*TODO*/
+	//대전 문화 축제 목록 조회 화면
 	@Override
 	public List<TourFastivalDataVo> tourFastivalListService(int pageNo, int numOfRows,TourFastivalDataVo searchVo ) throws Exception{
 		List<TourFastivalDataVo> tourFastivalList = new ArrayList<>();
@@ -110,12 +140,13 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 					System.out.println("이름 : " + fastivalListVo.getTitle());
 					System.out.println("홈페이지  : " + fastivalListVo.getHomepageUrl());
 				}
+				
 				tourFastivalList.add(fastivalListVo);
 			}
 			System.out.println("page number : "+pageNo);
 		return tourFastivalList;
 	}
-	
+	//문화 축제 상세 화면
 	@Override
 	public TourFastivalDataVo tourFastivalItemService(String ntatcSeq) throws Exception{
 		String url = URL + TOUR_FASTIVAL_ITEM + SERVICE_KEY + "&ntatcSeq=" + ntatcSeq;
@@ -198,6 +229,7 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 	@Override
 	public TourDataVo tourItemService(String tourSeq) throws Exception{
 		TourDataVo tourListVo = new TourDataVo();
+		//http://apis.data.go.kr/6300000/tourDataService/tourDataItem?&tourSeq=1321
 		String url = URL + TOUR_DATA_ITEM + SERVICE_KEY + "&tourSeq=" + tourSeq;
 			//페이지에 접근해 줄 Document객체 생성
 			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
@@ -239,7 +271,8 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 	public List<TourFoodDataVo> tourFoodListService(int pageNo, int numOfRows,TourFoodDataVo searchVo) throws Exception{
 		String url;
 		List<TourFoodDataVo> tourFoodDataList = new ArrayList<>();
-		if(searchVo.getdGu() != null || searchVo.getSearchKeyword() != null || searchVo.getSearchCondition() != null || searchVo.getdCode() != null) {
+		if(searchVo.getdGu() != null && searchVo.getSearchKeyword() != null || searchVo.getSearchCondition() != null || searchVo.getdCode() != null) {
+			
 			// parsing할 url지정
 			url = URL + TOUR_FOOD_DATA_LIST + SERVICE_KEY + "&numOfRows=" + numOfRows + "&pageNo=" + pageNo + "&dGu=" + searchVo.getdGu() + "&searchKeyword=" + searchVo.getSearchKeyword();
 		} else {
@@ -255,14 +288,11 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 				doc.getDocumentElement().normalize();
 				NodeList nList = doc.getElementsByTagName("items");
 				System.out.println("파싱할 리스트 수 : "+ nList.getLength());
-				Node node = doc.getElementsByTagName("msgHeader").item(0);
 				for(int temp = 0; temp < nList.getLength(); temp++){
 					TourFoodDataVo foodListVo = new TourFoodDataVo();
 					Node nNode = nList.item(temp);
 					if(nNode.getNodeType() == Node.ELEMENT_NODE){
 						Element eElement = (Element) nNode;
-						Element element = (Element) node;
-						foodListVo.setTotalPage(getTagValue("totalPage", element));
 						foodListVo.setFoodSeq(getTagValue("foodSeq", eElement));
 						foodListVo.setdCodeNm(getTagValue("dCodeNm", eElement));
 						foodListVo.setdGuNm(getTagValue("dGuNm", eElement));
@@ -274,7 +304,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 						foodListVo.setTelKuk(getTagValue("telKuk", eElement));
 						foodListVo.setTelNo(getTagValue("telNo", eElement));
 						foodListVo.setContents1(getTagValue("contents1", eElement));
-						System.out.println("########################");
 					} //if 끝	
 				System.out.println(foodListVo.getName());
 				tourFoodDataList.add(foodListVo);

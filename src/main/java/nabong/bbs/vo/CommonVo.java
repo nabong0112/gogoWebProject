@@ -8,6 +8,22 @@ public class CommonVo {
 	
 	private String totalPage;
 	
+	private String pageNo;
+	
+	private String startPage;
+	
+	private String endPage;
+	
+	private String totalCount;
+	
+	private String numOfRows;
+	
+	private String returnCode;
+	
+	private String returnMessage;
+	
+	private String successYN;
+	
 	public String getTotalPage() {
 		return totalPage;
 	}
@@ -40,18 +56,6 @@ public class CommonVo {
 		this.totalCount = totalCount;
 	}
 
-	private String pageNo;
-	
-	private String numOfRows;
-	
-	private String totalCount;
-	
-	private String returnCode;
-	
-	private String returnMessage;
-	
-	private String successYN;
-	
 	public String getSearchKeyword() {
 		return searchKeyword;
 	}
@@ -92,4 +96,19 @@ public class CommonVo {
 		this.successYN = successYN;
 	}
 
+	public String getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(String startPage) {
+		this.startPage = startPage;
+	}
+	
+	public String getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(String endPage) {
+		this.endPage = endPage;
+	}
 }

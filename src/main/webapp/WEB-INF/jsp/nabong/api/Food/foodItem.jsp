@@ -9,6 +9,8 @@
 <title></title>
 </head>
 <body>
+<%@ include file="api/include/naverMap.jsp"%>
+<div id="map" style="width:100%;height: 350px"></div>
 		${foodItem.name}<br>
 		${foodItem.foodSeq} <br>
 		${foodItem.addr1} <br>

@@ -71,7 +71,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		String userId = (String)session.getAttribute("userId");
-		System.out.println(userId);
 		System.out.println("== URL : "+ request.getRequestURI() +" ============================");
 			System.out.println("local ip : "+ getIp());
 		//dispatcher-servlet의 value와 홈페이지가 일치하는 경우 세션이 없으면 접근 불가
