@@ -39,7 +39,9 @@
 	
 	<!-- 일일 방문자 수 통계 -->
 	<select id="getTodayCount" resultType="int">
-		select count(*) from visit where visit_date = CURDATE();
+	<![CDATA[ 
+		select count(visit_date) from visit where visit_date = CURDATE();
+		]]>
 	</select>
 	
 	<!-- 날짜 별 방문자 수 통계 -->

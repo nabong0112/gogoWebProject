@@ -40,7 +40,7 @@ public class LodgingController {
 		return "/api/Lodging/touristHotelItem";
 	}
 	
-	@RequestMapping(value="/lodgingList.do")
+	@RequestMapping(value="Tour/lodgingList.do")
 	public String lodgingList(Model mv, @RequestParam (defaultValue = "1") int pageNo, TourLodgingDataVo searchVo) throws Exception {
 		
 		String url = URL + TOUR_LODGING_DATA_LIST + SERVICE_KEY + "&numOfRows=" + 6 + "&pageNo=" + pageNo;
@@ -57,7 +57,7 @@ public class LodgingController {
 		return "/api/Lodging/lodgingList";
 	}
 	
-	@RequestMapping(value="/lodgingItem.do")
+	@RequestMapping(value="Tour/lodgingItem.do")
 	public String lodgingItem(Model mv, @RequestParam String lodgingSeq ) throws Exception  {
 
 		TourLodgingDataVo lodgingItem = apiService.tourLodgingItemService(lodgingSeq);

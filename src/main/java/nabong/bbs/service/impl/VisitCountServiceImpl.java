@@ -38,33 +38,27 @@ public class VisitCountServiceImpl extends EgovAbstractServiceImpl implements Vi
 		//오늘 방문자 수 반환
 	    @Override
 		public int getTodayCount() throws Exception {
-			
-			
 			return visitCountMapper.getTodayCount();
 		}
 		
 		//날짜별 방문자 수 반환
 	    @Override
 		public int getDateCount(String date) throws Exception {
-								
 			return visitCountMapper.getDateCount(date);
 		}
 	    
 	    @Override
 		public List<VisitCountVo> getTime() throws Exception {
-								
 			return visitCountMapper.getTime();
 		}
 	    
 	    @Override
 		public int check(String visitIp) throws Exception {
-								
 			return visitCountMapper.check(visitIp);
 		}
 
 		@Override
 		public void setLastLogin(PageVo pageVo) throws Exception  {
-			
 			visitCountMapper.setLastLogin(pageVo);
 			
 		}

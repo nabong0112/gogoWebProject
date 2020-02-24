@@ -45,6 +45,12 @@ public class TourFoodDataVo extends CommonVo{
 	private String intro;
 	
 	private String price;
+	
+	private String ownerDriver;
+	
+	private String publicTraffic1;
+	
+	private String publicTraffic2;
 
 	public String getFoodSeq() {
 		return foodSeq;
@@ -198,4 +204,28 @@ public class TourFoodDataVo extends CommonVo{
 		this.price = price;
 	}
 	
+	public String getOwnerDriver() {
+		return ownerDriver;
+	}
+	
+	public void setOwnerDriver(String ownerDriver) {
+		this.ownerDriver = ownerDriver;
+		
+	}
+
+	public String getPublicTraffic1() {
+		return publicTraffic1;
+	}
+
+	public void setPublicTraffic1(String publicTraffic1) {
+		this.publicTraffic1 = publicTraffic1;
+	}
+
+	public String getPublicTraffic2() {
+		return publicTraffic2;
+	}
+
+	public void setPublicTraffic2(String publicTraffic2) {
+		this.publicTraffic2 = publicTraffic2;
+	}
 }

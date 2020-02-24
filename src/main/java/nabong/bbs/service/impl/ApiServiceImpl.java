@@ -82,6 +82,7 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 		System.out.println("getTotalPage : " + vo.getTotalPage().toString());
 		System.out.println("getPageNo : " + vo.getPageNo().toString());
 		System.out.println("getStartPage : " + vo.getStartPage().toString());
+		
 		System.out.println("getEndPage : " + vo.getEndPage().toString());
 		return vo;
 	}
@@ -92,12 +93,12 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 	    NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
 	    Node nValue = (Node) nlList.item(0);
 	    	if(nValue == null) {
-	    		return "NoData";
+	    		return "해당 내용이 존재하지 않습니다.";
 	    	} else {
 	    		return nValue.getNodeValue();
 	    	}
     	}else {
-    		return "noColumn";
+    		return "해당 내용이 존재하지 않습니다.";
     	}
     	
 	}
@@ -137,6 +138,7 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 					fastivalListVo.setTel(getTagValue("tel", eElement));
 					fastivalListVo.setHomepageUrl(getTagValue("homepageUrl", eElement));
 					fastivalListVo.setTotalCount(getTagValue("totalCount", eElement));
+					fastivalListVo.setRegDtTm(getTagValue("regDtTm", eElement));
 					System.out.println("이름 : " + fastivalListVo.getTitle());
 					System.out.println("홈페이지  : " + fastivalListVo.getHomepageUrl());
 				}
@@ -229,7 +231,7 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 	@Override
 	public TourDataVo tourItemService(String tourSeq) throws Exception{
 		TourDataVo tourListVo = new TourDataVo();
-		//http://apis.data.go.kr/6300000/tourDataService/tourDataItem?&tourSeq=1321
+		//http://apis.data.go.kr/6300000/tourDataService/tourDataItem?serviceKey=%2B04YS1ydsBqlx3NmRFUsC1sRHrt4m%2BvzBhW9nes16%2FLC5oXQmE38nKIeuYvcy4NKiuv2RyH9FrirU4ZK7APzHg%3D%3D&tourSeq=1321
 		String url = URL + TOUR_DATA_ITEM + SERVICE_KEY + "&tourSeq=" + tourSeq;
 			//페이지에 접근해 줄 Document객체 생성
 			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
@@ -258,10 +260,7 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 				tourListVo.setTelKuk(getTagValue("telKuk", eElement));
 				tourListVo.setTelNo(getTagValue("telNo", eElement));
 				tourListVo.setContents1(getTagValue("contents1", eElement));
-				tourListVo.setContents2(getTagValue("contents2", eElement));
-			}else{
-				return null;
-				}
+			}
 		return tourListVo;
 	}	
 	
@@ -346,6 +345,9 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 			foodItemVo.setTitle(getTagValue("title", eElement));
 			foodItemVo.setIntro(getTagValue("intro", eElement));
 			foodItemVo.setPrice(getTagValue("price", eElement));
+			foodItemVo.setOwnerDriver(getTagValue("ownerDriver", eElement));
+			foodItemVo.setPublicTraffic1(getTagValue("publicTraffic1",eElement));
+			foodItemVo.setPublicTraffic2(getTagValue("publicTraffic2",eElement));
 		}	// if end
 		System.out.println(foodItemVo.getAddr1());
 		return foodItemVo;

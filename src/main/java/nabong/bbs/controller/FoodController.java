@@ -23,7 +23,7 @@ public class FoodController {
 	@Autowired
 	private ApiService apiService;
 	
-	@RequestMapping("/bestFoodList.do")
+	@RequestMapping("/Tour/bestFoodList.do")
 	public String bestFoodList(Model mv) throws Exception{
 		
 		
@@ -31,7 +31,7 @@ public class FoodController {
 		return "/api/Food/bestFoodList";
 	}
 	
-	@RequestMapping("/featuredFoodList.do")
+	@RequestMapping("/Tour/featuredFoodList.do")
 	public String featuredFoodList(Model mv) throws Exception{
 		
 		
@@ -39,7 +39,7 @@ public class FoodController {
 		return "/api/Food/featuredFoodList";
 	}
 
-	@RequestMapping(value="/foodList.do")
+	@RequestMapping(value="/Tour/foodList.do")
 	public String foodList(@RequestParam(defaultValue = "1") int pageNo,TourFoodDataVo searchVo, Model mv) throws Exception{
 		String url = URL + TOUR_FOOD_DATA_LIST + SERVICE_KEY + "&numOfRows=" + 6 + "&pageNo=" + pageNo;
 		if(pageNo < 1) {
@@ -60,7 +60,7 @@ public class FoodController {
 		return "/api/Food/foodList";
 	}
 	
-	@RequestMapping("/foodItem.do")
+	@RequestMapping("Tour/foodItem.do")
 	public String foodItem(@RequestParam String foodSeq, Model mv) throws Exception{
 		
 		mv.addAttribute("foodItem", apiService.tourFoodItemService(foodSeq));

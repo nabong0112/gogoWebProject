@@ -23,13 +23,19 @@ public class FastivalController {
 	@Autowired
 	private ApiService apiService;
 	
-	@RequestMapping(value="/daejeonHistory.do")
+	@RequestMapping(value="/Tour/daejeonHistory.do")
 	public String daejeonHistory(Model mv) throws Exception {
 		
 		return "/api/Fastival/daejeonHistory";
 	}
 	
-	@RequestMapping(value="/fastivalList.do")
+	@RequestMapping(value="/Tour/daejeonTourBus.do")
+	public String daejeonTourBus(Model mv) throws Exception {
+		
+		return "/api/Fastival/daejeonCityTourBus";
+	}
+	
+	@RequestMapping(value="/Tour/fastivalList.do")
 	public String fastivalList(Model mv, @RequestParam (defaultValue = "1") int pageNo, TourFastivalDataVo searchVo) throws Exception{
 		String url = URL + TOUR_FASTIVAL_LIST + SERVICE_KEY + "&numOfRows=" + 6 + "&pageNo=" + pageNo;
 		if(pageNo < 1) {
@@ -43,7 +49,7 @@ public class FastivalController {
 		return "/api/Fastival/fastivalList";
 	}
 	
-	@RequestMapping(value="/fastivalItem.do")
+	@RequestMapping(value="/Tour/fastivalItem.do")
 	public String fastivalItem(Model mv, @RequestParam String ntatcSeq) throws Exception {
 		
 		TourFastivalDataVo fastivalItem = apiService.tourFastivalItemService(ntatcSeq);

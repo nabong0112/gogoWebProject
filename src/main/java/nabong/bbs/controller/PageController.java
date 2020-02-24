@@ -139,6 +139,8 @@ public class PageController {
 		mv.addAttribute("boardList", list);
 		mv.addAttribute("QnAList", QnAList);
 		mv.addAttribute("FreeList", FreeList);
+		mv.addAttribute("total",visitService.getTotalCount());
+		mv.addAttribute("today",visitService.getTodayCount());
 		return "main";
 	}
 

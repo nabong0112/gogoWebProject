@@ -91,6 +91,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			service.setLastLogin(pageVo);
 			System.out.println(userId + "님 최종 접속일자 수정");
 		}
+		System.out.println("총 방문자 수 : " + service.getTotalCount());
 		return true;
 	}
 	
