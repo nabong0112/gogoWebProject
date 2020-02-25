@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>      
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,23 +17,79 @@
 
 <!-- Or load different theme style -->
 <link rel="stylesheet" href="/css/egovframework/insight.css">
+<style>
+.myBgClass { transform: scale(0.9) translate(15px, -10px); opacity: 0.1; }
+</style>
 </head>
 <body>
-<div id="dataName"></div>
-</body>
+<h1>주간별 접속자 통계</h1>
+<div id="categoryData"></div>
+<h1>회원 성비</h1>
+<div id="gaugeChart"></div>
 <script type="text/javascript">
+var total="${total}";
+var today="${today}";
+var male="${jender.totalMale}";
+var female="${jender.totalFemale}";
+var day = "${chart[0].start}" + "~" + "${chart[0].end}";
+var day2 ="${chart[1].start}" + "~" + "${chart[1].end}";
+var day3 ="${chart[2].start}" + "~" + "${chart[2].end}";
+var day4 ="${chart[3].start}" + "~" + "${chart[3].end}";
+var day5 ="${chart[4].start}" + "~" + "${chart[4].end}";
 var chart = bb.generate({
+	 size: {
+		    height: 240,
+		    width: 900
+		  },
 	  data: {
+	    x: "x",
 	    columns: [
-		["data1", 30, 200, 100, 400, 150, 250],
-		["data2", 50, 20, 10, 40, 15, 25]
+		["x", day, day2, day3, day4, day5],
+		["총 방문자 수", ${chart[0].count}, ${chart[0].count + chart[1].count}, ${chart[0].count + chart[1].count + chart[2].count}, 
+			${chart[0].count + chart[1].count + chart[2].count + chart[3].count}, ${chart[0].count + chart[1].count + chart[2].count + chart[3].count + chart[4].count}],
+		["주간 별 방문자 수", ${chart[0].count}, ${chart[1].count}, ${chart[2].count}, ${chart[3].count}, ${chart[4].count}]
 	    ],
-	    names: {
-	      data1: "남자",
-	      data2: "여자"
+	    groups: [
+	      [
+	    	  "총 방문자 수",
+	        "주간 별 방문자 수"
+	      ]
+	    ],
+	    type: "bar"
+	  },
+	  axis: {
+	    x: {
+	      type: "category"
 	    }
 	  },
-	  bindto: "#dataName"
+	  background: {
+		    class: "myBgClass",
+		    imgUrl: "https://www.djjunggu.go.kr/upload/kr/_main_swap/kr_main_swap_0_1581136279.jpg"
+		  },
+	  bindto: "#categoryData"
+	});
+var chart2 = bb.generate({
+	 size: {
+		    height: 240,
+		    width: 480
+		  },
+	  data: {
+	    columns: [
+		["남성", male],
+		["여성", female]
+	    ],
+	    type: "pie",
+	    onclick: function(d, i) {
+		console.log("onclick", d, i);
+	   },
+	    onover: function(d, i) {
+		console.log("onover", d, i);
+	   },
+	    onout: function(d, i) {
+		console.log("onout", d, i);
+	   }
+	  },
+	  bindto: "#pieChart"
 	});
 </script>
 </html>

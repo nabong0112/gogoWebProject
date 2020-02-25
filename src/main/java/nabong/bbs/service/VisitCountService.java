@@ -20,6 +20,10 @@ public interface VisitCountService {
 	public int check(String visitIp) throws Exception;
 	//최종 방문 날짜(회원전용)수정 
 	public void setLastLogin(PageVo pageVo) throws Exception ;
+	//주간 통계
+	public List<VisitCountVo> statistic() throws Exception;
+	//남녀성비
+	public VisitCountVo selectJender() throws Exception;
 	
 
 }

@@ -10,6 +10,42 @@ public class VisitCountVo {
     private String visitRefer; //접속자 접속 경로
     
     private String visitAgent; //접속자 브라우저 정보
+    
+    private String start;
+    
+    private String end;
+    
+    private String count;
+    
+    private String date;
+    
+    private String totalMale;
+    
+    private String totalFemale;
+
+	public String getStart() {
+		return start;
+	}
+
+	public void setStart(String start) {
+		this.start = start;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
 
 	public String getVisitId() {
 		return visitId;
@@ -49,6 +85,30 @@ public class VisitCountVo {
 
 	public void setVisitAgent(String visitAgent) {
 		this.visitAgent = visitAgent;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getTotalMale() {
+		return totalMale;
+	}
+
+	public void setTotalMale(String totalMale) {
+		this.totalMale = totalMale;
+	}
+
+	public String getTotalFemale() {
+		return totalFemale;
+	}
+
+	public void setTotalFemale(String totalFemale) {
+		this.totalFemale = totalFemale;
 	}
 
 	

@@ -30,55 +30,6 @@ public class TourController {
 		return "/api/include/naverMap";
 	}
 	
-	//먹어봐유 폼
-    @RequestMapping("/spot.do")
-    public String join3(Model mv) throws Exception {
-
-       return "api/spot";
-
-    }
-    
-    //소개해유 폼
-    @RequestMapping("/culture.do")
-    public String join1(Model mv) throws Exception {
-
-       return "api/culture";
-
-    }
-    //쉬다가유 폼
-    @RequestMapping("/sleep.do")
-    public String join4(Model mv) throws Exception {
-
-       return "api/sleep";
-
-    }
-    
-    //놀러가유 폼
-    @RequestMapping("/tour.do")
-    public String join2(Model mv) throws Exception {
-
-       return "api/tour";
-
-    }
-    
-  //소통해유 폼
-    @RequestMapping("/api/main.do")
-    public String join5(Model mv) throws Exception {
-
-       return "api/main";
-
-    }
-
-    
-    //네비 폼
-    @RequestMapping("/navi.do")
-    public String navi(Model mv) throws Exception {
-
-       return "api/navi";
-
-    }
-
-	
 	@RequestMapping(value="/Tour/tourList.do")
 	public String tourList(@RequestParam(defaultValue = "1") int pageNo, Model mv, TourDataVo searchVo) throws Exception{
 		String url = URL + TOUR_DATA_LIST + SERVICE_KEY + "&numOfRows=" + 6 + "&pageNo=" + pageNo;
@@ -95,7 +46,6 @@ public class TourController {
 
 	@RequestMapping(value="/Tour/tourItem.do")
 	public String tourItem(@RequestParam String tourSeq, Model mv) throws Exception{
-		System.out.println("1");
 		TourDataVo tourItem = apiService.tourItemService(tourSeq);
 		
 		mv.addAttribute("tourItem",tourItem);

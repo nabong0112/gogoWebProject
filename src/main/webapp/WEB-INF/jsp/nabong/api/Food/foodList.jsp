@@ -16,30 +16,6 @@
 	}
 </script>
 <body>
-	<!-- <form action="foodList.do" id="goSearch" method="get">
-			<div class="search">
-				<input type="text" class="searchKeyword" name="searchKeyword"
-					placeholder="검색어를 입력하세요">
-				<button onclick="javascript:goSearch();">검색</button>
-			</div>
-			<div class="select">
-				지역구 <select name="dGu">
-					<option>전체</option>
-					<option value="C0605">중구</option>
-					<option value="C0603">서구</option>
-					<option value="C0602">동구</option>
-					<option value="C0604">유성구</option>
-					<option value="C0601">대덕구</option>
-				</select> 
-				분류  <select name="searchCondition">
-					<option>전체</option>
-					<option value="1">업소명</option>
-					<option value="2">전화번호</option>
-					<option value="3">대표메뉴</option>
-					<option value="4">상세정보</option>
-				</select>
-			</div>
-	</form> -->
 	<div class="count" align="center">
 		<div class="alignLeft">총 페이지 : ${paging.totalPage}</div>
 		<div class="alignCenter">총 갯수 : ${paging.totalCount}</div>

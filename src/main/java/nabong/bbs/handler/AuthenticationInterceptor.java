@@ -25,7 +25,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	PageVo pageVo = new PageVo();
 	
 	//  인증 체크가 필요 한 URL 리스트  
-	/* /myPage.do /login.do /join.do /Talk/review/write.do /Talk/photo/write.do */
+	/* /myPage.do /login.do /Talk/review/write.do /Talk/photo/write.do */
 	List<String> urls;
  
 	public void setUrls(List urls) {

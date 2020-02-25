@@ -23,4 +23,9 @@ public interface VisitCountMapper  {
 	
 	public void setLastLogin(PageVo pageVo) throws Exception;
 
+	public List<VisitCountVo> statistic() throws Exception;
+	
+	public int selectMale() throws Exception;
+
+	public int selectFemale() throws Exception;
 }

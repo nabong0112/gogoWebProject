@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,8 @@ import nabong.bbs.vo.PagingVo;
 
 @Controller
 public class PageController {
+	Logger log = Logger.getLogger(getClass());
+	
 	@Autowired
 	private PageService pageService;
 	
@@ -55,7 +58,10 @@ public class PageController {
 		//차트
 		@RequestMapping("/chartEx.do")
 		public String chartEx(Model mv) throws Exception {
-			
+			mv.addAttribute("total", visitService.getTotalCount());
+			mv.addAttribute("today", visitService.getTodayCount());
+			mv.addAttribute("chart", visitService.statistic());
+			mv.addAttribute("jender", visitService.selectJender());
 			return "chartEx";
 
 		}

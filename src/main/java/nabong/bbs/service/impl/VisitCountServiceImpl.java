@@ -62,6 +62,19 @@ public class VisitCountServiceImpl extends EgovAbstractServiceImpl implements Vi
 			visitCountMapper.setLastLogin(pageVo);
 			
 		}
+		
+		 @Override
+			public List<VisitCountVo> statistic() throws Exception {
+				return visitCountMapper.statistic();
+			}
+		 
+		 @Override
+			public VisitCountVo selectJender() throws Exception {
+			 VisitCountVo vo = new VisitCountVo();
+			 	vo.setTotalMale(Integer.toString(visitCountMapper.selectMale()));
+			 	vo.setTotalFemale(Integer.toString(visitCountMapper.selectFemale()));
+				return vo;
+			}
 	    
 	    
 	

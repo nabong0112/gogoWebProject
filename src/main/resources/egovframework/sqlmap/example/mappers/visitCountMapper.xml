@@ -6,6 +6,11 @@
 		<result property="visitDate" column="visit_date" />
 		<result property="visitId" column="visit_id" />
 		<result property="visitIp" column="visit_ip"/>
+		<result property="start" column="start"/>
+		<result property="end" column="end"/>
+		<result property="count" column="count"/>
+		<result property="totalMale" column="totalMale" />
+		<result property="totalFemale" column="totalFemale" />
 </resultMap>
 
 <resultMap id="user" type="nabong.bbs.vo.PageVo">
@@ -73,4 +78,25 @@
 		update user set user_last_login = CURDATE() where user_id= #{userId};
 		]]>
 	</update>
+	<!-- 아이피는 다른데 아이디가 똑같으면  -->
+<select id="statistic" resultMap="count">
+<![CDATA[ 
+	SELECT DATE_FORMAT(DATE_SUB(`visit_date`, INTERVAL (DAYOFWEEK(`visit_date`)-1) DAY), '%Y-%m-%d') as start,
+       DATE_FORMAT(DATE_SUB(`visit_date`, INTERVAL (DAYOFWEEK(`visit_date`)-7) DAY), '%Y-%m-%d') as end,
+       DATE_FORMAT(`visit_date`, '%Y-%U') AS `date`,
+       count(`visit_date`) as `count`
+  FROM visit
+ GROUP BY date;
+ ]]>
+ </select>
+ <select id="selectMale" resultType="int">
+ <![CDATA[ 
+ select count(*) as totalMale from user where user_jender = 'Male'
+  ]]>
+</select>
+ <select id="selectFemale" resultType="int">
+ <![CDATA[ 
+ select count(*) as totalFemale from user where user_jender = 'Female'
+  ]]>
+</select>
 </mapper>	

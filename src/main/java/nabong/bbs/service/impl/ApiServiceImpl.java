@@ -50,7 +50,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 	CommonVo common = new CommonVo();
 	//페이징
 	public CommonVo getPageing(String url) throws Exception {
-		System.out.println("============ url \n" + url + "\n=============");
 		int countPage = 5; //한 화면에 출력될 페이지 수
 		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
@@ -116,11 +115,9 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 			// 최상위 태그 불러오기
 			// dom tree가 xml문서의 구조대로 완성이 됨
 			doc.getDocumentElement().normalize();
-			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 			
 			// 파싱할 tag = MsgBody 안에 있음
 			NodeList nList = doc.getElementsByTagName("items");
-			System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 			for(int temp = 0; temp < nList.getLength(); temp++){
 				TourFastivalDataVo fastivalListVo = new TourFastivalDataVo();
 				Node nNode = nList.item(temp);
@@ -139,13 +136,10 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 					fastivalListVo.setHomepageUrl(getTagValue("homepageUrl", eElement));
 					fastivalListVo.setTotalCount(getTagValue("totalCount", eElement));
 					fastivalListVo.setRegDtTm(getTagValue("regDtTm", eElement));
-					System.out.println("이름 : " + fastivalListVo.getTitle());
-					System.out.println("홈페이지  : " + fastivalListVo.getHomepageUrl());
 				}
 				
 				tourFastivalList.add(fastivalListVo);
 			}
-			System.out.println("page number : "+pageNo);
 		return tourFastivalList;
 	}
 	//문화 축제 상세 화면
@@ -199,7 +193,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 				
 				// 파싱할 tag = MsgBody 안에 있음
 				NodeList nList = doc.getElementsByTagName("items");
-				System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 				for(int temp = 0; temp < nList.getLength(); temp++){
 					TourDataVo tourListVo = new TourDataVo();
 					Node nNode = nList.item(temp);
@@ -218,8 +211,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 						tourListVo.setTelKuk(getTagValue("telKuk", eElement));
 						tourListVo.setTelNo(getTagValue("telNo", eElement));
 						tourListVo.setContents2(getTagValue("contents2", eElement));
-						System.out.println("일련번호 : " + tourListVo.getTourSeq());
-						System.out.println("이름 : " + tourListVo.getName());
 					}	// if end
 				tourDataList.add(tourListVo);
 				}	// for end
@@ -304,10 +295,8 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 						foodListVo.setTelNo(getTagValue("telNo", eElement));
 						foodListVo.setContents1(getTagValue("contents1", eElement));
 					} //if 끝	
-				System.out.println(foodListVo.getName());
 				tourFoodDataList.add(foodListVo);
 				}// for문 끝
-				System.out.println("page number : "+pageNo + ", listSize : " + tourFoodDataList.size());
 		return tourFoodDataList;
 		
 	}
@@ -328,7 +317,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 		TourFoodDataVo foodItemVo = new TourFoodDataVo();
 		// 파싱할 tag = msgBody 안에 있음
 		NodeList nList = doc.getElementsByTagName("msgBody");
-		System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 		Node nNode = nList.item(0);
 		if(nNode.getNodeType() == Node.ELEMENT_NODE){
 			Element eElement = (Element) nNode;
@@ -387,8 +375,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 						lodgingListVo.setTelKuk(getTagValue("telKuk", eElement));
 						lodgingListVo.setTelNo(getTagValue("telNo", eElement));
 						lodgingListVo.setContents1(getTagValue("contents1", eElement));
-						System.out.println(lodgingListVo.getName());
-						System.out.println(lodgingListVo.getLodgingSeq());
 					}	// if end
 					tourLogingDataList.add(lodgingListVo);
 				}	// for end
@@ -410,7 +396,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 			TourLodgingDataVo lodgingItemVo = new TourLodgingDataVo();
 				// 파싱할 tag = MsgBody 안에 있음
 			NodeList nList = doc.getElementsByTagName("msgBody");
-			System.out.println("파싱할 리스트 수 : "+ nList.getLength());
 			Node nNode = nList.item(0);
 			if(nNode.getNodeType() == Node.ELEMENT_NODE){
 				Element eElement = (Element) nNode;
@@ -425,7 +410,6 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 				lodgingItemVo.setTelNo(getTagValue("telNo", eElement));
 				lodgingItemVo.setContents1(getTagValue("contents1", eElement));
 			}	// if end
-				System.out.println(lodgingItemVo.getName());
 				return lodgingItemVo;
 	}
 	
