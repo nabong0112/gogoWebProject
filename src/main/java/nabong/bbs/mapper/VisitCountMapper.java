@@ -19,9 +19,9 @@ public interface VisitCountMapper  {
 
 	public List<VisitCountVo> getTime() throws Exception;
 	
-	public int check(String visitIp) throws Exception;
+	public int check(VisitCountVo vo) throws Exception;
 	
-	public void setLastLogin(PageVo pageVo) throws Exception;
+	public void setLastLogin(String userId) throws Exception;
 
 	public List<VisitCountVo> statistic() throws Exception;
 	

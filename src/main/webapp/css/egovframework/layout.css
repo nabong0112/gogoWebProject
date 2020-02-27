@@ -1,0 +1,86 @@
+@charset "UTF-8";
+  a:link { color: red; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: blue; text-decoration: none;}
+ /* 기본 레이아웃 구성 */
+#container {
+	width: 1500px;
+	margin: 0px auto;
+	padding: 20px;
+}
+
+#header {
+	height: 10%;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+#content {
+	width: 1000px;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+#sidebar {
+	width: 250px;
+	height: 1000px;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+#footer {
+	clear: both;
+	padding: 20px;
+}
+/* 기본 레이아웃 구성 끝 */
+
+/* 사이드 메뉴 ul 속성 */
+ul.mylist, ol.mylist {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	max-width: 250px;
+	width: 100%;
+}
+/* 사이드 메뉴 il 속성 */
+ul.mylist li, ol.mylist li {
+	padding: 5px 0px 5px 5px;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #efefef;
+	font-size: 16px;
+}
+ul.mylist li:before,
+ol.mylist li:before {
+    content: ">";
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px 5px 6px 0px;
+}
+
+.button {
+
+    width:100px;
+
+    background-color: #1b5ac2;
+
+    border: none;
+
+    color:#fff;
+
+    padding: 15px 0;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    display: inline-block;
+
+    font-size: 15px;
+
+    margin: 4px;
+
+    cursor: pointer;
+
+}

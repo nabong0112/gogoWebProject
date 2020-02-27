@@ -291,13 +291,6 @@
 		]]>
 	</insert>
 	
-	<select id="test" resultMap="board">
-		SELECT *
-		FROM
-		TEST
-		WHERE board_value = #{boardValue}
-	</select>
-	
 	<select id="fileDownload" resultMap="board">
 		SELECT 
 			board_title, board_text, board_user, FILE_NAME, FILE_CHANGE_NAME, FILE_PATH
@@ -349,5 +342,81 @@
             </if>
             AND BUL_WIRT.BBS_NUM = #{boardNo}     
          </select> -->
+	<insert id="insertnavermember">
+	<![CDATA[
+		insert
+		into
+		navermember
+		(naveremail, navername, navernickname)
+		values(#{naveremail},#{navername},#{navernickname})
+		on duplicate key update naveremail=#{naveremail}, navername=#{navername}, navernickname=#{navernickname}
+		]]>
+	</insert>
+
+	<select id="idcheck" resultType="int">
+
+		select count(*) from user where user_id= #{userId}
+	</select>
+
+	<insert id="getKey">
+		update user set user_key = #{param2} where user_id=#{param1}
+	</insert>
+
+	<update id="alter_userKey">
+		update user set user_key = 'Y' where user_id=#{param1} and user_key =
+		#{param2}
+	</update>
+
+	<select id="ido" resultMap="user">
+		select *from user where user_id=#{userId}
+	</select>
+
+	<select id="idfind" resultType="String">
+		select ifnull(user_id,0) from
+		user
+		where user_name = #{userName} and user_birth = #{userBirth} and user_key =
+		'Y'
+	</select>
+
+	<update id="searchPassword">
+		update user set user_pw = #{param3} where user_id =
+		#{param1} and user_email = #{param2}
+	</update>
+
+	<select id="mypaging" resultMap="user">
+		select *from user where user_id = #{id}
+	</select>
+	<update id="editpw" parameterType="hashmap">
+		update user set user_pw =
+		#{userPw} where user_id = #{userId}
+	</update>
+
+	<update id="editphone" parameterType="hashmap">
+		update user set user_phone
+		= #{userPhone} where user_id = #{userId}
+	</update>
+
+	<update id="editbirth" parameterType="hashmap">
+		update user set user_birth
+		= #{userBirth} where user_id = #{userId}
+	</update>
+
+	<update id="editemail" parameterType="hashmap">
+		update user set user_email
+		= #{userEmail} where user_id = #{userId}
+	</update>
+
+	<delete id="userdelete">
+		delete from user where user_id = #{id}
+	</delete>
 	
+	<insert id="joinCheck">
+   <![CDATA[
+      insert
+      into
+      user
+      (user_id, user_pw, user_name, user_key, user_email, user_phone, user_birth, user_jender)
+      values(#{userId}, #{userPw}, #{userName}, #{userKey}, #{userEmail}, #{userPhone}, #{userBirth}, #{userJender})
+      ]]>
+   </insert>
 </mapper>

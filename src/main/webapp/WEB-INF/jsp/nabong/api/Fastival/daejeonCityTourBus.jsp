@@ -7,7 +7,7 @@
 <title>대전 시티투어</title>
 <style type="text/css">
 .button {
-    width:100%;
+    width: 100%;
     background-color: #1b5ac2;
     border: none;
     color:#fff;
@@ -51,11 +51,11 @@ table {
 </style>
 </head>
 <body bgcolor="#ffffff">
-<div>
-	<div>
-	<input type="button" class="button" value="대전 시티투어 홈페이지 바로가기(새창)" onclick="window.open('http://www.daejeoncitytour.co.kr/smain.html')">
-	</div>
-	<div>
+<div id="container">
+	<%@ include file="../include/tourHompageHeader.jsp"%>
+	<%@ include file="../include/navi.jsp"%>
+	<div id="content" align="center">
+	<input type="button" class="button" style="width: 100%;margin: 30px;"value="대전 시티투어 홈페이지 바로가기(새창)" onclick="window.open('http://www.daejeoncitytour.co.kr/smain.html')">
 		<h2 style="color: blue;">대전시티투어 이용안내(Information Use)</h2>
 		<ol style="line-height: 3em;">
 			<li><b style="color: red;">음주자는 시티투어를 탑승하실 수 없습니다</b></li>
@@ -73,10 +73,8 @@ table {
 				check out the timetable in advance and reservation website, please
 				telephone counseling.)</li>
 		</ol>
-	</div>
-<div>
 		<h2 style="color: blue;">코스별 운영 요일 안내 (operating day course guide)</h2>
-<table class="tbTypeA" cellpadding="0" cellspacing="0" border="0">
+	<table class="tbTypeA" cellpadding="0" cellspacing="0" border="0">
 		<colgroup>
 			<col width="5%">
 			<col width="15%">

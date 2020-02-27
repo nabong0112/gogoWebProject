@@ -9,7 +9,8 @@
 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-<title></title>
+<title>음식점 상세정보</title>
+<link type="text/css" rel="stylesheet" href="/css/egovframework/layout.css">
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=x1s1s82sfg"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=x1s1s82sfg&submodules=geocoder"></script>
 <style type="text/css">
@@ -41,64 +42,82 @@
 </style>
 </head>
 <body>
-<div id="map1" style="width: 50%; height: 400px; min-width: 800px"></div>
-<div class="info" style="width:50%; border : 1px solid #1b5ac2;min-width: 800px" align="center" >
-	<table style="text-align: center;" >
-		<thead>
-			<tr>
-				<th colspan="2">음식점 상세 정보</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>이름</td>
-				<td><c:out value="${foodItem.name}"></c:out></td>
-			</tr>
-			<tr>
-				<td>주소</td>
-				<td><c:out value="${foodItem.addr1}"></c:out>,<c:out value="${foodItem.addr2}"></c:out></td>
-			</tr>
-			<tr>
-				<td>영업 시간</td>
-				<td><c:out value="${foodItem.openTime}"></c:out> ~ <c:out value="${foodItem.closeTime}"></c:out></td>
-			</tr>
-			<tr>
-				<td>전화번호</td>
-				<td><c:out value="${foodItem.telCode}"></c:out>-<c:out value="${foodItem.telKuk}"></c:out>-<c:out value="${foodItem.telNo}"></c:out></td>
-			</tr>
-			<tr>
-				<td>설명</td>
-				<td><c:out value="${foodItem.contents1}"></c:out></td>
-			</tr>
-			<tr>
-				<td>대표메뉴</td>
-				<td><c:out value="${foodItem.title}"></c:out></td>
-			</tr>
-		</tbody>
-	</table>
-	<table style="text-align: center;">
-			<tr>
-				<td>오시는 길(자동차)</td>
-			</tr>
-			<tr>
-				<td><c:out value="${foodItem.ownerDriver}"></c:out></td>
-			</tr>
-			<tr>
-				<td>오시는 길(대중교통)</td>
-			</tr>
-			<tr>
-				<c:choose>
-					<c:when test="${foodItem.publicTraffic1 ne null}">
-						<td><c:out value="${foodItem.publicTraffic1}"></c:out></td>
-						<td><c:out value="${foodItem.publicTraffic2}"></c:out></td>
-					</c:when>
-					<c:otherwise>
-						<td>해당 내용이 존재하지 않습니다.</td>
-					</c:otherwise>
-				</c:choose>
-			</tr>
-	</table>
-</div>
+	<div id="container">
+		<%@ include file="../include/tourHompageHeader.jsp"%>
+		<%@ include file="../include/navi.jsp"%>
+		<div id="content" align="center">
+			<div class="info">
+				<table style="text-align: center;">
+					<thead>
+						<tr>
+							<th colspan="2">음식점 상세 정보</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>이름</b></td>
+							<td><c:out value="${foodItem.name}"></c:out></td>
+						</tr>
+						<tr>
+							<td><b>주소</b></td>
+							<td><c:out value="${foodItem.addr1}"></c:out>,<c:out
+									value="${foodItem.addr2}"></c:out></td>
+						</tr>
+						<tr>
+							<td><b>영업시간</b></td>
+							<td><c:out value="${foodItem.openTime}"></c:out> ~ <c:out
+									value="${foodItem.closeTime}"></c:out></td>
+						</tr>
+						<tr>
+							<td><b>전화번호</b></td>
+							<td><c:out value="${foodItem.telCode}"></c:out>-<c:out
+									value="${foodItem.telKuk}"></c:out>-<c:out
+									value="${foodItem.telNo}"></c:out></td>
+						</tr>
+						<tr>
+							<td><b>설명</b></td>
+							<td><c:out value="${foodItem.contents1}"></c:out></td>
+						</tr>
+						<tr>
+							<td><b>대표메뉴</b></td>
+							<td><c:out value="${foodItem.title}"></c:out></td>
+						</tr>
+					</tbody>
+				</table>
+				<table style="text-align: center;">
+					<tr>
+						<td><b>오시는 길(자동차)</b></td>
+					</tr>
+					<tr>
+						<c:choose>
+							<c:when test="${foodItem.ownerDriver ne null}">
+								<td><c:out value="${foodItem.ownerDriver}"></c:out></td>
+							</c:when>
+							<c:otherwise>
+								<td>해당 내용이 존재하지 않습니다.</td>
+							</c:otherwise>
+						</c:choose>
+					</tr>
+					<tr>
+						<td><b>오시는 길(대중교통)</b></td>
+					</tr>
+					<tr>
+						<c:choose>
+							<c:when test="${foodItem.publicTraffic1 ne null}">
+								<td><c:out value="${foodItem.publicTraffic1}"></c:out></td>
+								<td><c:out value="${foodItem.publicTraffic2}"></c:out></td>
+							</c:when>
+							<c:otherwise>
+								<td>해당 내용이 존재하지 않습니다.</td>
+							</c:otherwise>
+						</c:choose>
+					</tr>
+				</table>
+				<div id="map1" style="width: 50%; height: 400px; min-width: 800px"></div>
+				<input type="button" class="button" value="뒤로가기" onclick="history.back(-1);">
+			</div>
+		</div>
+	</div>
 <script>
 var add = "${foodItem.addr1}";
 var map = new naver.maps.Map('map1', {
@@ -118,6 +137,6 @@ naver.maps.Service.geocode({address: add}, function(status, response){
 	    map: map
 	});
 });
-</script>	
+</script>
 </body>
 </html>

@@ -17,54 +17,54 @@ public class PageVo {
 	 */
 	int boardValue;
 	//회원정보
-	String userId;
-	String userPw;
-	String userName;
-	String joinTime;
-	String userIdQustion;
-	String userIdAnswer;
-	String userJender;
+	private String userId;
+	private String userPw;
+	private String userName;
+	private String joinTime;
+	private String userIdQustion;
+	private String userIdAnswer;
+	private String userJender;
+	private String userEmail;
+	private String userKey;
+	private String userPhone;
+	private String userBirth;
+	
+	//네이버 로그인
+	private String navername;
+	private String naveremail;
+	private String photoFile;
+	private String photo;
+	private String originalFilename;
+	private String navernickname;
+	private String userProfile;
+	
 	//게시글 정보
 	int boardNo;
-	String boardTitle;
-	String boardText;
-	String boardUser;
-	String boardTime;
+	private String boardTitle;
+	private String boardText;
+	private String boardUser;
+	private String boardTime;
 	int boardCount;
 	String boardDateTime;
 	//댓글 정보
 	int commentNo;
-	String commentUser;
-	String commentText;
-	String commentTime;
+	private String commentUser;
+	private String commentText;
+	private String commentTime;
 	int recommentNo;
-	String recommentUser;
-	String recommentText;
-	String recommentTime;
+	private String recommentUser;
+	private String recommentText;
+	private String recommentTime;
 	//검색 정보
-	String searchNo;
-	String searchName;
+	private String searchNo;
+	private String searchName;
 	
 	//파일정보
-	String filePath;
-	String fileChangeName;
+	private String filePath;
+	private String fileChangeName;
 	
-	//방문자 수 통계
-	int visitDate;
-	String visitId;
 	
-	public int getVisitDate() {
-		return visitDate;
-	}
-	public void setVisitDate(int visitDate) {
-		this.visitDate = visitDate;
-	}
-	public String getVisitId() {
-		return visitId;
-	}
-	public void setVisitId(String visitId) {
-		this.visitId = visitId;
-	}
+	
 	public MultipartFile getMpfile() {
 		return mpfile;
 	}
@@ -300,6 +300,72 @@ public class PageVo {
 	}
 	public void setUserLastLogin(Date userLastLogin) {
 		this.userLastLogin = userLastLogin;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public String getUserKey() {
+		return userKey;
+	}
+	public void setUserKey(String userKey) {
+		this.userKey = userKey;
+	}
+	public String getUserPhone() {
+		return userPhone;
+	}
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+	public String getUserBirth() {
+		return userBirth;
+	}
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
+	}
+	public String getNavername() {
+		return navername;
+	}
+	public void setNavername(String navername) {
+		this.navername = navername;
+	}
+	public String getNaveremail() {
+		return naveremail;
+	}
+	public void setNaveremail(String naveremail) {
+		this.naveremail = naveremail;
+	}
+	public String getPhotoFile() {
+		return photoFile;
+	}
+	public void setPhotoFile(String photoFile) {
+		this.photoFile = photoFile;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	public String getOriginalFilename() {
+		return originalFilename;
+	}
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
+	}
+	public String getNavernickname() {
+		return navernickname;
+	}
+	public void setNavernickname(String navernickname) {
+		this.navernickname = navernickname;
+	}
+	public String getUserProfile() {
+		return userProfile;
+	}
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
 	}
 	
 

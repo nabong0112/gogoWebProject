@@ -26,15 +26,18 @@
 
 	<!-- 방문자 추가 -->
 	<insert id="setTotalCount">
-		 insert into visit
-		 <choose>
-		 	<when test="visitIp != null">
-		 		(visit_ip, visit_date) values (#{visitIp}, CURDATE());
-		 	</when>
-		 	<otherwise>
-		 		(visit_date) values (CURDATE());
-		 	</otherwise>
-		 </choose>
+	insert into visit
+	<choose>
+		<when test="visitIp != null and visitId != null">
+			(visit_ip, visit_id, visit_date) values (#{visitIp}, #{visitId}, CURDATE());
+		</when>
+		<when test="visitIp != null">
+			(visit_ip, visit_date) values (#{visitIp}, CURDATE());
+		</when>
+		<otherwise>
+			(visit_date) values (CURDATE());
+		</otherwise>
+	</choose>
 	</insert>
 	
 	<!-- 총 방문자 수 통계 -->
@@ -61,7 +64,10 @@
 	
 	<!-- 재방문 확인 -->
 	<select id="check" resultType="int">
-		select count(*) from visit where visit_date = CURDATE() and visit_ip = #{visitIp};
+		select count(*) from visit where visit_date = CURDATE() and visit_ip = #{visitIp}
+		<if test="visitId != null">
+			and visit_id = #{visitId}
+		</if>
 		<!-- <choose>
 		 	<when test="visitIp != null">
 		 		(visit_ip, visit_date) values (#{visitIp}, CURDATE());
@@ -78,7 +84,7 @@
 		update user set user_last_login = CURDATE() where user_id= #{userId};
 		]]>
 	</update>
-	<!-- 아이피는 다른데 아이디가 똑같으면  -->
+<!-- 주간 접속자 -->
 <select id="statistic" resultMap="count">
 <![CDATA[ 
 	SELECT DATE_FORMAT(DATE_SUB(`visit_date`, INTERVAL (DAYOFWEEK(`visit_date`)-1) DAY), '%Y-%m-%d') as start,

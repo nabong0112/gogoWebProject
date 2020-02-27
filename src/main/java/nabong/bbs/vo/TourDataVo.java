@@ -33,6 +33,9 @@ public class TourDataVo extends CommonVo {
 	private String imgIdx;
 	private String keyword;
 	private String useYn;
+	private String physicalPath;
+	private String tFilename;
+	
 	public String getTourSeq() {
 		return tourSeq;
 	}
@@ -212,6 +215,18 @@ public class TourDataVo extends CommonVo {
 	}
 	public void setContents1(String contents1) {
 		this.contents1 = contents1;
+	}
+	public String getPhysicalPath() {
+		return physicalPath;
+	}
+	public void setPhysicalPath(String physicalPath) {
+		this.physicalPath = physicalPath;
+	}
+	public String gettFilename() {
+		return tFilename;
+	}
+	public void settFilename(String tFilename) {
+		this.tFilename = tFilename;
 	}
 
 }

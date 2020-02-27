@@ -2,6 +2,8 @@ package nabong.bbs.controller;
 
 import java.util.List;
 
+import org.apache.commons.logging.impl.SimpleLog;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import nabong.bbs.vo.TourDataVo;
 
 @Controller
 public class TourController {
+	
+	static Logger logger = Logger.getLogger(SimpleLog.class);
 	
 	private static final String URL = "http://apis.data.go.kr/6300000/";
 	private static final String TOUR_DATA_LIST = "tourDataService/tourDataList?";
@@ -38,18 +42,20 @@ public class TourController {
 		}
 		CommonVo paging = apiService.getPageing(url);
 		List<TourDataVo> tourList = apiService.tourListService(pageNo, 6, searchVo);
-		
+		String menu = "tour";
 		mv.addAttribute("tourList", tourList);
 		mv.addAttribute("paging", paging);
+		mv.addAttribute("menu", menu);
 		return "/api/Tour/tourList";
 	}
 
-	@RequestMapping(value="/Tour/tourItem.do")
+	@RequestMapping(value="Tour/tourItem.do")
 	public String tourItem(@RequestParam String tourSeq, Model mv) throws Exception{
+		String menu = "tour";
 		TourDataVo tourItem = apiService.tourItemService(tourSeq);
 		
 		mv.addAttribute("tourItem",tourItem);
-		
+		mv.addAttribute("menu", menu);
 		return "/api/Tour/tourItem";
 	}
 	

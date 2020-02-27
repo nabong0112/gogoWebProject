@@ -42,7 +42,7 @@ public class LodgingController {
 	
 	@RequestMapping(value="Tour/lodgingList.do")
 	public String lodgingList(Model mv, @RequestParam (defaultValue = "1") int pageNo, TourLodgingDataVo searchVo) throws Exception {
-		
+		String menu = "lodging";
 		String url = URL + TOUR_LODGING_DATA_LIST + SERVICE_KEY + "&numOfRows=" + 6 + "&pageNo=" + pageNo;
 		if(pageNo < 1) {
 			pageNo = 1;
@@ -53,17 +53,18 @@ public class LodgingController {
 		
 		mv.addAttribute("lodgingList", lodgingList);
 		mv.addAttribute("paging",paging);
+		mv.addAttribute("menu", menu);
 		
 		return "/api/Lodging/lodgingList";
 	}
 	
 	@RequestMapping(value="Tour/lodgingItem.do")
 	public String lodgingItem(Model mv, @RequestParam String lodgingSeq ) throws Exception  {
-
+		String menu = "lodging";
 		TourLodgingDataVo lodgingItem = apiService.tourLodgingItemService(lodgingSeq);
 		
 		mv.addAttribute("lodgingItem", lodgingItem);
-		
+		mv.addAttribute("menu", menu);
 		return "/api/Lodging/lodgingItem";
 	}
 	

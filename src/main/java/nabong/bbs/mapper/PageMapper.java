@@ -1,7 +1,9 @@
 package nabong.bbs.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
@@ -54,6 +56,35 @@ public interface PageMapper {
 	public String getTodayCount()throws Exception;
 	
 	public String getDateCount(String date)throws Exception;
+	
+	public void insertnavermember(PageVo vo);
+	
+	public int idcheck(String userId);
+	
+	void getKey(@Param ("userId") String userId, @Param("userKey") String userKey);
+	
+	int alter_userKey(@Param ("userId") String userId, @Param("userKey") String userKey);
+	
+	public PageVo ido(String userId);
+
+	String idfind(@Param("userName") String userName,@Param("userBirth")String userBirth);
+	
+	int searchPassword(String userId, String userEmail, String userKey);
+	
+	public PageVo mypaging(String id);
+	
+	public int userdelete(String id);
+	
+	public int editphone(HashMap<String,String> map);
+	
+	public int editbirth(HashMap<String,String> map);
+	
+	public int editpw(HashMap<String,String> map);
+	
+	public int editemail(HashMap<String,String> map);
+	
+	public void joinCheck(PageVo vo);
+
 	
 	
 	

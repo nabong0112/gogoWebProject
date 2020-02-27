@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -462,5 +464,156 @@ public class PageController {
 	public @ResponseBody String testDB() throws Exception {
 
 		return pageService.memberInfoService();
+	}
+	/*아이디 중복체크*/
+	@ResponseBody
+	   @RequestMapping(value="/idcheck.do", method=RequestMethod.GET)
+	   public String idcheck(@RequestParam("userId") String userId) throws Exception {
+	      
+	      System.out.println(pageService.idcheck(userId));
+	      System.out.println(userId);
+	      
+	      String a = Integer.toString(pageService.idcheck(userId));
+	      return a;
+	   }
+	
+	@ResponseBody
+	@RequestMapping(value = "idfind.do", method = RequestMethod.POST)
+	public String userIdSearch(@RequestParam("userName") String userName, @RequestParam("userBirth") String userBirth) {
+		String result = pageService.idfind(userName, userBirth);
+
+		return result;
+	}
+
+	@RequestMapping(value = "pwfind.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String passwordSearch(@RequestParam("userId") String userId, @RequestParam("userEmail") String userEmail,
+			String userName, HttpServletRequest request) {
+
+		pageService.mailSendWithPassword(userId, userEmail, request);
+
+		return "redirect:login1.do";
+	}
+
+	@RequestMapping(value = "idpwfind.do")
+	public String idpwfind() throws Exception {
+		return "api/idpwfind";
+	}
+ 	@RequestMapping(value = "/reg.do", method = RequestMethod.POST)
+	public String userRegPass(PageVo vo, Model model, HttpServletRequest request, String userId, String userKey, String userEmail) {
+		pageService.joinCheckService(vo);
+		// 인증 메일 보내기 메서드
+		pageService.mailSendWithUserKey(vo.getUserEmail(), vo.getUserId(), vo.getUserName(), request);
+		return "redirect:login1.do";
+		
+	}
+
+	@RequestMapping(value = "key_alter.do", method = RequestMethod.GET)
+	public String key_alterConfirm(@RequestParam("userId") String userId, @RequestParam("userKey") String userKey) {
+		pageService.alter_userKey(userId, userKey); // mailsender의 경우 @Autowired
+		return "mailsuccess";
+	}
+	@RequestMapping(value="/signform.do")
+	public String signform() throws Exception{
+		return "api/signform";
+	}
+		
+	@ResponseBody
+	@RequestMapping(value = "loginck.do")
+	public String loginck(PageVo vo, HttpSession session) throws Exception {
+		String result = Integer.toString(pageService.logincheck1(vo, session));
+		System.out.println(result);
+		System.out.println(session.getAttribute("userId"));
+		return result;
+
+	}
+
+	@RequestMapping(value = "/login1.do")
+	public String login() throws Exception {
+		return "api/login1";
+	}
+
+	@RequestMapping(value = "mypage1.do", method = RequestMethod.GET)
+	public String mypage1() throws Exception {
+		return "api/mypage1";
+	}
+
+	@RequestMapping(value = "mypaging.do", method = RequestMethod.GET)
+	public String mypaging(PageVo vo, HttpSession session, Model model) {
+
+		String id = (String) session.getAttribute("userId");
+		vo = pageService.mypaging(id);
+		model.addAttribute("user", vo);
+
+		return "api/mypage1";
+	}
+
+	// 사용자 삭제
+	@ResponseBody
+	@RequestMapping(value = "userdelete.do", method = RequestMethod.POST)
+	public String delete(PageVo vo, HttpSession session) {
+
+		String id = (String) session.getAttribute("userId");
+		System.out.println("컨트롤러" + session.getAttribute("userId"));
+		Integer.toString(pageService.userdelete(id));
+		session.invalidate();
+		return "main";
+	}
+
+	// 비밀번호 수정
+	@ResponseBody
+	@RequestMapping(value = "editpw.do", method = RequestMethod.POST)
+	public String editpw(PageVo vo) {
+		String userPw = vo.getUserPw();
+		String userId = vo.getUserId();
+		return Integer.toString(pageService.editpw(userPw, userId));
+	}
+
+	// 폰번호 수정
+	@ResponseBody
+	@RequestMapping(value = "editphone.do", method = RequestMethod.POST)
+	public String editphone(PageVo vo) {
+		String userPhone = vo.getUserPhone();
+		String userId = vo.getUserId();
+		System.out.println("컨트롤러아디" + vo.getUserId());
+		System.out.println("컨트롤러폰" + vo.getUserPhone());
+		return Integer.toString(pageService.editphone(userPhone, userId));
+	}
+
+	// 생년월일 수정
+	@ResponseBody
+	@RequestMapping(value = "editbirth.do", method = RequestMethod.POST)
+	public String editbirth(PageVo vo) {
+		String userId = vo.getUserId();
+		String userBirth = vo.getUserBirth();
+		return Integer.toString(pageService.editbirth(userBirth, userId));
+	}
+
+	// 이메일 수정
+	@ResponseBody
+	@RequestMapping(value = "editemail.do", method=RequestMethod.POST)
+	public String editemail(PageVo vo, HttpServletRequest request, HttpSession session) {
+	   String userId = vo.getUserId();
+	   String userEmail = vo.getUserEmail();
+	   pageService.mailSendWithUserKey(vo.getUserEmail(), vo.getUserId(), vo.getUserName(), request);
+	   session.invalidate();
+	   return Integer.toString(pageService.editemail(userEmail, userId));
+	}
+	//글 읽기 (대전광역시전용)
+	@RequestMapping("/Talk/board.do")
+	public String board(@RequestParam("boardNo") int boardNo, HttpSession session, Model mv) throws Exception {
+		String check = "login";
+		PageVo vo = pageService.readNoticeService(boardNo);
+
+		if (session.getAttribute("userId") != null) {
+			pageService.countNoticeService(boardNo);
+			mv.addAttribute("list", vo);// 조회수
+			mv.addAttribute("commentList", pageService.getCommentService(boardNo));// 댓글
+			return "read";
+
+		} else {
+			mv.addAttribute("check", check);
+			return "login";
+		}
 	}
 }

@@ -2,6 +2,7 @@ package nabong.bbs.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import nabong.bbs.vo.PageVo;
@@ -20,6 +21,7 @@ public interface PageService {
 	public PageVo myPageService(HttpSession session, String id) throws Exception;
 	
 	public List<PageVo> getnoticeService(int boardValue) throws Exception;
+	
 	public void insertNoticeService(PageVo vo) throws Exception;
 	
 	public void updateNoticeService(PageVo vo) throws Exception;
@@ -45,9 +47,36 @@ public interface PageService {
 	public List<PageVo> searchNoticeService(PageVo vo);
 
 	public String joinService(PageVo vo);
+	
+	public void joinCheckService(PageVo vo);
 
 	public PageVo findUserService(PageVo vo);
+	
+	public void insertnavermember(PageVo vo) throws Exception;
+	
+	public int idcheck(String userId) throws Exception;
 
+	public void mailSendWithUserKey(String userEmail,  String userId, String userName, HttpServletRequest request);
+
+	public int alter_userKey(String userId, String userKey);
+	
+	public String idfind(String userName, String userBirth);
+	
+	public void mailSendWithPassword(String userId, String userEmail, HttpServletRequest request);
+	
+	public int logincheck1(PageVo vo, HttpSession session) throws Exception;
+	
+	public PageVo mypaging(String id);
+	
+	public int userdelete(String id);
+	
+	public int editpw(String userPw, String userId);
+	
+	public int editphone(String userPhone, String userId);
+	
+	public int editbirth(String userBirth, String userId);
+	
+	public int editemail(String userEmail, String userId);
 
 	
 }

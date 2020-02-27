@@ -71,27 +71,26 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		String userId = (String)session.getAttribute("userId");
-		System.out.println("== URL : "+ request.getRequestURI() +" ============================");
-			System.out.println("local ip : "+ getIp());
 		//dispatcher-servlet의 value와 홈페이지가 일치하는 경우 세션이 없으면 접근 불가
 		for(int i=0; i < urls.size(); i++){
 			if (request.getRequestURI().matches(urls.get(i)) && userId == null) {
-				System.out.println("== return false ============================");
 				response.sendRedirect("/login.do");
 				return false;
 			}
 		}
-		//동일한 ip가 아닐 경우 방문자 수 추가
-		if(service.check(getIp()) == 0) {
+		if(userId != null) { //방문자 추가
+			service.setLastLogin(userId);
 			vo.setVisitIp(getIp());
-			service.setTotalCount(vo);
+			vo.setVisitId(userId);
+			if(service.check(vo) == 0) {
+				service.setTotalCount(vo);
+			}
+		}else {
+			vo.setVisitIp(getIp());
+			if(service.check(vo) == 0) {
+				service.setTotalCount(vo);
+			}
 		}
-		if(userId != null) {
-			pageVo.setUserId(userId);
-			service.setLastLogin(pageVo);
-			System.out.println(userId + "님 최종 접속일자 수정");
-		}
-		System.out.println("총 방문자 수 : " + service.getTotalCount());
 		return true;
 	}
 	

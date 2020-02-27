@@ -19,7 +19,7 @@ public class FoodController {
 	private static final String URL = "http://apis.data.go.kr/6300000/";
 	private static final String TOUR_FOOD_DATA_LIST = "tourFoodDataService/tourFoodDataList?";
 	private static final String TOUR_FOOD_DATA_ITEM = "tourFoodDataService/tourFoodDataItem?";
-	
+	String menu = "food";
 	@Autowired
 	private ApiService apiService;
 	
@@ -57,6 +57,7 @@ public class FoodController {
 			mv.addAttribute("searchVo", searchVo);
 		}
 		mv.addAttribute("paging", paging);
+		mv.addAttribute("menu", menu);
 		return "/api/Food/foodList";
 	}
 	
@@ -64,6 +65,7 @@ public class FoodController {
 	public String foodItem(@RequestParam String foodSeq, Model mv) throws Exception{
 		
 		mv.addAttribute("foodItem", apiService.tourFoodItemService(foodSeq));
+		mv.addAttribute("menu", menu);
 		
 		return "/api/Food/foodItem";
 	}

@@ -251,6 +251,8 @@ public class ApiServiceImpl extends EgovAbstractServiceImpl implements ApiServic
 				tourListVo.setTelKuk(getTagValue("telKuk", eElement));
 				tourListVo.setTelNo(getTagValue("telNo", eElement));
 				tourListVo.setContents1(getTagValue("contents1", eElement));
+				tourListVo.setPhysicalPath(getTagValue("physicalPath",eElement));
+				tourListVo.settFilename(getTagValue("tFilename",eElement));
 			}
 		return tourListVo;
 	}	

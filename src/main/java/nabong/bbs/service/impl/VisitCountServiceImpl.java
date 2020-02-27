@@ -53,13 +53,13 @@ public class VisitCountServiceImpl extends EgovAbstractServiceImpl implements Vi
 		}
 	    
 	    @Override
-		public int check(String visitIp) throws Exception {
-			return visitCountMapper.check(visitIp);
+		public int check(VisitCountVo vo) throws Exception {
+			return visitCountMapper.check(vo);
 		}
 
 		@Override
-		public void setLastLogin(PageVo pageVo) throws Exception  {
-			visitCountMapper.setLastLogin(pageVo);
+		public void setLastLogin(String userId) throws Exception  {
+			visitCountMapper.setLastLogin(userId);
 			
 		}
 		

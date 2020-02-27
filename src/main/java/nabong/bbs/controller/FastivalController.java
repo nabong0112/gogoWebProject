@@ -19,19 +19,19 @@ public class FastivalController {
 	private static final String TOUR_FASTIVAL_LIST = "festivalDaejeonService/festivalDaejeonList?";
 	private static final String TOUR_FASTIVAL_ITEM = "festivalDaejeonService/festivalDaejeonItem?";
 	private static final String SERVICE_KEY = "serviceKey=%2B04YS1ydsBqlx3NmRFUsC1sRHrt4m%2BvzBhW9nes16%2FLC5oXQmE38nKIeuYvcy4NKiuv2RyH9FrirU4ZK7APzHg%3D%3D";
-	
+	String menu = "fastival";
 	@Autowired
 	private ApiService apiService;
 	
 	@RequestMapping(value="/Tour/daejeonHistory.do")
 	public String daejeonHistory(Model mv) throws Exception {
-		
+		mv.addAttribute("menu", menu);
 		return "/api/Fastival/daejeonHistory";
 	}
 	
 	@RequestMapping(value="/Tour/daejeonTourBus.do")
 	public String daejeonTourBus(Model mv) throws Exception {
-		
+		mv.addAttribute("menu", menu);
 		return "/api/Fastival/daejeonCityTourBus";
 	}
 	
@@ -46,6 +46,7 @@ public class FastivalController {
 		
 		mv.addAttribute("fastivalList", fastivalList);
 		mv.addAttribute("paging", paging);
+		mv.addAttribute("menu", menu);
 		return "/api/Fastival/fastivalList";
 	}
 	
@@ -55,7 +56,7 @@ public class FastivalController {
 		TourFastivalDataVo fastivalItem = apiService.tourFastivalItemService(ntatcSeq);
 		
 		mv.addAttribute("fastivalItem", fastivalItem);
-		
+		mv.addAttribute("menu", menu);
 		return "/api/Fastival/fastivalItem";
 	}
 
