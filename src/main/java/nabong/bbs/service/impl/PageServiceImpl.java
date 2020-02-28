@@ -346,29 +346,27 @@ public int alter_userKey(String userId, String userKey) {
 	public int logincheck1(PageVo vo, HttpSession session) throws Exception {
 		// 로그인 결과값
 		
-		String inputid=vo.getUserId();
-		String inputpw=vo.getUserPw();
-		String userId=vo.getUserId();
-		System.out.println(inputid);
-		System.out.println(inputpw);
+		String inputid = vo.getUserId();
+		String inputpw = vo.getUserPw();
+		String userId = vo.getUserId();
+		System.out.println("service : " + inputid);
+		System.out.println("service : " + inputpw);
 		
 		pageMapper.login(vo);
 		PageVo id = pageMapper.ido(userId);
-		
 				int result = 0;
 				String y = "Y";
 				if (id == null) {
+					System.out.println("1");
 					result = 0;
 					return result;
-				}
-				
-				else if (!(id.getUserKey().equals(y))) {
+				}else if (!(id.getUserKey().equals(y))) {
+					System.out.println("2");
 					result = -1;
 					return result;
-				}
-				
-				else {
-					System.out.println(id.getUserKey());
+				}else {
+					System.out.println("3");
+					System.out.println("Service.getUserKey : "+id.getUserKey());
 					result=1;
 					session.setAttribute("userId", vo.getUserId());
 					session.setAttribute("userPw", vo.getUserPw());

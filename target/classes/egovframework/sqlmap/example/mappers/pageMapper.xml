@@ -368,7 +368,7 @@
 	</update>
 
 	<select id="ido" resultMap="user">
-		select *from user where user_id=#{userId}
+		select * from user where user_id=#{userId}
 	</select>
 
 	<select id="idfind" resultType="String">

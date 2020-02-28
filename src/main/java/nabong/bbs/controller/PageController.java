@@ -64,14 +64,17 @@ public class PageController {
 			mv.addAttribute("today", visitService.getTodayCount());
 			mv.addAttribute("chart", visitService.statistic());
 			mv.addAttribute("jender", visitService.selectJender());
-			return "chartEx";
+			return "api/include/chartEx";
 
 		}
-		
+		//대전홈페이지 메인
 		@RequestMapping(path="/daejeonMain.do")
 		public String daejeonMain(Model mv) throws Exception {
-			
-			return "/gogoDaejeon/main";
+			mv.addAttribute("total", visitService.getTotalCount());
+			mv.addAttribute("today", visitService.getTodayCount());
+			mv.addAttribute("chart", visitService.statistic());
+			mv.addAttribute("jender", visitService.selectJender());
+			return "/api/main";
 
 		}
 	
@@ -518,8 +521,9 @@ public class PageController {
 		return "api/signform";
 	}
 		
+	//로그인 체크
 	@ResponseBody
-	@RequestMapping(value = "loginck.do")
+	@RequestMapping(value = "/loginck.do")
 	public String loginck(PageVo vo, HttpSession session) throws Exception {
 		String result = Integer.toString(pageService.logincheck1(vo, session));
 		System.out.println(result);
@@ -538,7 +542,7 @@ public class PageController {
 		return "api/mypage1";
 	}
 
-	@RequestMapping(value = "mypaging.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypaging.do", method = RequestMethod.GET)
 	public String mypaging(PageVo vo, HttpSession session, Model model) {
 
 		String id = (String) session.getAttribute("userId");

@@ -1,20 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <link type="text/css" rel="stylesheet" href="/css/egovframework/tourHompageHeader.css">
-<link type="text/css" rel="stylesheet" href="/css/egovframework/layout.css">
+<style type="text/css">
+#header {
+	height: 10%;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+.button {
+    width:100px;
+    background-color: #1b5ac2;
+    border: none;
+    color:#fff;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
 <header>
 	<div class="header">
 		<div class="mainIcon">
 			<img width="200px" height="150px" alt="index.do" title="메인" src="/images/egovframework/daejeonMainLogo.jpg">
-			<input type="button" value="회원가입" class="button" style="float: right" onclick="location.href='join.do'">
-			<input type="button" value="로그인" class="button" style="float: right" onclick="location.href='login.do'">
+			<c:choose>
+				<c:when test="${sessionScope.userId != null}">
+					<b>${sessionScope.userId}</b>님 안녕하세요
+					<input type="button" value="마이페이지" class="button" style="float: right" onclick="location.href='/mypaging.do'">
+				</c:when>
+				<c:otherwise>
+					<input type="button" value="회원가입" class="button" style="float: right" onclick="location.href='/signform.do'">
+					<input type="button" value="로그인" class="button" style="float: right" onclick="location.href='/login1.do'">
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="selectMenu" align="center">
 			<ul class="myMenu">
@@ -40,13 +68,13 @@
             			<li><a href="/Tour/lodgingList.do">숙박 업소 목록</a></li>
         			</ul>  
     			</li>
-    			<li class="board"><a href="/Talk/notice.do">소통해유</a>
+    			<!-- <li class="board"><a href="/Talk/notice.do">소통해유</a>
      				<ul class="board_s submenu">
             			<li><a href="/Talk/notice.do">공지사항</a></li>
             			<li><a href="/Talk/board.do">후기 게시판</a></li>
             			<li><a href="/Talk/qestion.do">문의사항</a></li>
         			</ul>  
-     			</li>   
+     			</li>    -->
 			</ul>
 		</div>
 		</div>

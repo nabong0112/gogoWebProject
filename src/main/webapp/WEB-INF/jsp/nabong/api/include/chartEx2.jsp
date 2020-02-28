@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>      
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,15 +15,8 @@
 
 <!-- Or load different theme style -->
 <link rel="stylesheet" href="/css/egovframework/insight.css">
-<style>
-.myBgClass { transform: scale(0.9) translate(15px, -10px); opacity: 0.1; }
-</style>
 </head>
 <body>
-<h3>주간 & 총 방문자 수 통계</h3>
-<div id="categoryData" align="center"></div>
-<h3>회원 성비 통계</h3>
-<div id="gaugeChart" align="center"></div>
 <script type="text/javascript">
 var total="${total}";
 var today="${today}";
@@ -69,30 +60,6 @@ var chart = bb.generate({
 		  },
 	  bindto: "#categoryData"
 	});
-var chart2 = bb.generate({
-	position : "center",
-	 size: {
-		    height: 240,
-		    width: 480
-		  },
-	  data: {
-	    columns: [
-		["남성", male],
-		["여성", female]
-	    ],
-	    type: "pie",
-	    onclick: function(d, i) {
-		console.log("onclick", d, i);
-	   },
-	    onover: function(d, i) {
-		console.log("onover", d, i);
-	   },
-	    onout: function(d, i) {
-		console.log("onout", d, i);
-	   }
-	  },
-	  bindto: "#pieChart"
-	});
-</script>
+	</script>
 </body>
 </html>
